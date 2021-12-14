@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 import auth from "./services/authService";
 import AuthRoute from "./routes/authRoute";
+import PublicNavbar from "./components/common/publicNavbar/publicNavbar";
 import HomePage from "./pages/home/homePage";
 import LoginPage from "./pages/login/loginPage";
 import VerifyPage from "./pages/verify/verifyPage";
@@ -27,6 +28,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <ToastContainer />
+        <PublicNavbar />
         <main>
           <Switch>
             {/* Main routes */}

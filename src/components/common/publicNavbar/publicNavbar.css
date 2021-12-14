@@ -1,0 +1,31 @@
+.navbar {
+    width: calc(100vw - 600px);
+    height: 80px;
+    padding: 0 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+}
+.nav-link {
+    color: var(--grey);
+    text-decoration: none;
+    font-size: larger;
+    margin-left: 40px;
+    transition-duration: 0.3s;
+}
+.nav-link:hover {
+    color: var(--blue);
+}
+.no-decor {
+    text-decoration: none;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    color: var(--blue);
+}

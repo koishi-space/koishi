@@ -1,5 +1,13 @@
+:root {
+  --blue: #1138f7;
+  --dark-blue: #2440C9;
+  --grey: #7f7f7f;
+}
+
 body {
   margin: 0;
+  padding: 0;
+  border: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +18,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.shadow {
+  box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
+  -webkit-box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
+  -moz-box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
 }
