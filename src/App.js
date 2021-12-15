@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 import auth from "./services/authService";
@@ -11,6 +11,8 @@ import VerifyPage from "./pages/verify/verifyPage";
 import DashboardPage from "./pages/dashboard/dashboardPage";
 import NotFoundPage from "./pages/default/notFoundPage";
 import ForbiddenPage from "./pages/default/forbiddenPage";
+import LogoutRoute from "./routes/logoutRoute";
+import RegisterPage from "./pages/register/registerPage";
 
 class App extends Component {
   state = {
@@ -25,11 +27,11 @@ class App extends Component {
   render() {
     if (!process.env.REACT_APP_JWTPK) throw new Error("JWTPK is not set!");
     if (!process.env.REACT_APP_API_URL) throw new Error("API_URL is not set!");
-
+    const { user } = this.state;
     return (
       <React.Fragment>
         <ToastContainer />
-        <PublicNavbar />
+        <PublicNavbar user={user} />
         <main>
           <Switch>
             {/* Main routes */}
@@ -38,6 +40,8 @@ class App extends Component {
 
             {/* Account control routes */}
             <Route path="/login" component={LoginPage} />
+            <Route path="/logout" component={LogoutRoute} />
+            <Route path="/register" component={RegisterPage} />
             <Route path="/verify" component={VerifyPage} />
 
             {/* Sink routes */}

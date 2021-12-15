@@ -4,14 +4,17 @@ import { Formik, Form } from "formik";
 import Input from "../common/input/input";
 import Button from "../common/button/button";
 import Spinner from "../common/spinner/spinner";
-import auth from "../../services/authService";
-// import { Redirect } from "react-router";
+import * as userService from "../../services/api/usersService";
+import * as authService from "../../services/authService";
 
-const LoginForm = () => {
-  const [invalidLogin, setInvalidLogin] = useState(false);
-  // const [redirect, setRedirect] = useState(false);
+const RegisterForm = (props) => {
+  const [submitError, setSubmitError] = useState("");
 
-  const loginSchema = Yup.object().shape({
+  const registerSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, "At least 2 characters long.")
+      .max(10, "Maximum 10 characters long.")
+      .required(),
     email: Yup.string()
       .min(4, "Email has to be at least 4 characters long.")
       .max(50, "Email cannot be longer than 50 characters.")
@@ -34,36 +37,43 @@ const LoginForm = () => {
     <React.Fragment>
       <Formik
         initialValues={{
+          name: "",
           email: "",
           password: "",
         }}
-        validationSchema={loginSchema}
+        validationSchema={registerSchema}
         validateOnChange={false}
         onSubmit={async (formData, { resetForm, setSubmitting }) => {
           setSubmitting(true);
-          const authed = await auth.login(formData.email, formData.password);
-          if (authed) {
-            setInvalidLogin(false);
-            setSubmitting(false);
+          try {
+            const { data : token } = await userService.registerUser(formData);
+            authService.loginWithJwt(token);
+
             resetForm();
-            // TODO: fix spaghetti code below (https://stackoverflow.com/questions/39833140/react-how-do-i-access-a-component-from-another-component)
-            // there is a better way to do the following - via hooks, not by reloading the whole page
-            // however it is like this just for now for simplicity
-            window.location = "/";
-            // setRedirect(true);
-          } else {
-            setInvalidLogin(true);
-            setSubmitting(false);
+            window.location = "/verify";
+          } catch (ex) {
+            if (ex.response && ex.response.status === 400) {
+              setSubmitError(ex.response.data);
+            }
           }
+          setSubmitting(false);
         }}
       >
         {({ values, errors, handleChange, isSubmitting }) =>
           !isSubmitting ? (
             <Form style={formStyles}>
               <Input
+                error={errors.name}
+                name="name"
+                placeholder="How should we call you?"
+                type="text"
+                value={values.name}
+                onChange={handleChange}
+              />
+              <Input
                 error={errors.email}
                 name="email"
-                placeholder="Email"
+                placeholder="Your email"
                 type="text"
                 value={values.email}
                 onChange={handleChange}
@@ -76,10 +86,10 @@ const LoginForm = () => {
                 value={values.password}
                 onChange={handleChange}
               />
-              <Button text="Login" type="submit" />
-              {invalidLogin && (
+              <Button text="Register" type="submit" />
+              {submitError && (
                 <p style={{ color: "red", fontWeight: "300" }}>
-                  Wrong email or password.
+                  {submitError}
                 </p>
               )}
             </Form>
@@ -88,9 +98,8 @@ const LoginForm = () => {
           )
         }
       </Formik>
-      {/* {redirect && <Redirect to="/" />} */}
     </React.Fragment>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

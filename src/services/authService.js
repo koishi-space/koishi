@@ -5,7 +5,7 @@ var apiEndpoint = (process.env.REACT_APP_API_URL + "/auth");
 
 http.setJwt(getJwt());
 
-async function login(email, password) {
+export async function login(email, password) {
   try {
     const { data: jwt } = await http.post(apiEndpoint, { email, password });
     localStorage.setItem("auth-token", jwt);
@@ -15,15 +15,15 @@ async function login(email, password) {
   }
 }
 
-function loginWithJwt(jwt) {
+export function loginWithJwt(jwt) {
   localStorage.setItem("auth-token", jwt);
 }
 
-function logout() {
+export function logout() {
   localStorage.removeItem("auth-token");
 }
 
-function getCurrentUser() {
+export function getCurrentUser() {
   try {
     const jwt = getJwt();
     return jwt != null ? jwtDecode(jwt) : null;
@@ -32,7 +32,7 @@ function getCurrentUser() {
   }
 }
 
-function getJwt() {
+export function getJwt() {
   return localStorage.getItem("auth-token") || "";
 }
 

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {Typewriter} from "react-simple-typewriter";
 import Button from "../../components/common/button/button";
 import "./home.css";
+import auth from "../../services/authService";
 
 const HomePage = () => {
   return (
@@ -20,7 +21,11 @@ const HomePage = () => {
           />your data.</h1>
           {/* <h1>Collect your data</h1> */}
           <p>The easiest data tool out there. Scalable to the moon. Unleash the potential of your data with Koishi.</p>
+          {auth.getCurrentUser() ? 
+          <Link to="/dashboard" style={{width: "max-content"}}><Button text="Dashboard"/></Link>
+          :
           <Link to="/get-started" style={{width: "max-content"}}><Button text="Get started"/></Link>
+          }
       </div>
       <div className="spot-right">
           <img className="spot-image" src={window.location.origin + "/assets/graph_large.png"} alt="Large image of a graph" />
