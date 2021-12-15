@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import LoginForm from "../../components/forms/loginForm";
+import "./loginPage.css";
 
 class LoginPage extends Component {
   state = {
@@ -7,8 +9,10 @@ class LoginPage extends Component {
   };
 
   render() {
-    return <div>
-        <h1>Login page</h1>
+    return <div className="view main">
+        <h1>Login</h1>
+        <hr />
+        <LoginForm />
     </div>;
   }
 }

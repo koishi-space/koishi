@@ -6,8 +6,13 @@ var apiEndpoint = (process.env.REACT_APP_API_URL + "/auth");
 http.setJwt(getJwt());
 
 async function login(email, password) {
-  const { data: jwt } = await http.post(apiEndpoint, { email, password });
-  localStorage.setItem("auth-token", jwt);
+  try {
+    const { data: jwt } = await http.post(apiEndpoint, { email, password });
+    localStorage.setItem("auth-token", jwt);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 function loginWithJwt(jwt) {

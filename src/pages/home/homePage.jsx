@@ -8,7 +8,8 @@ const HomePage = () => {
   return (
     <div className="spot">
       <div className="spot-left">
-          <h1><Typewriter
+          <h1>
+            <Typewriter
             loop
             cursor
             cursorStyle="_   "

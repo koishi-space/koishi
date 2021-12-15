@@ -20,6 +20,19 @@ code {
     monospace;
 }
 
+hr {
+  height: 1px;
+  background-color: var(--grey);
+  border: none;
+}
+
+.view {
+  margin-top: 80px;
+  width: calc(100vw - 600px);
+  padding: 0 300px;
+  background-color: whitesmoke;
+}
+
 .shadow {
   box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
   -webkit-box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);

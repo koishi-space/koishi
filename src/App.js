@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 import auth from "./services/authService";
