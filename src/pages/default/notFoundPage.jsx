@@ -1,10 +1,11 @@
 import React from "react";
+import "./defaultPages.css";
 
-// TODO: Implement 404 Not Found page
 const NotFoundPage = (props) => {
     return (
-       <div>
-           <h1>404 not found</h1>
+       <div className="view main">
+           <h1>404</h1>
+           <h3>Page not found</h3>
        </div>
     );
 }

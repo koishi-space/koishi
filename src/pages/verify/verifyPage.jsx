@@ -61,8 +61,8 @@ class VerifyPage extends Component {
                     You have successfully verified your account! Lets start
                     using Koishi!
                   </p>
-                  <Link to="/dashboard">
-                    <Button text="Go to dashboard!" />
+                  <Link to="/app">
+                    <Button text="Go to app!" />
                   </Link>
                 </React.Fragment>
               )

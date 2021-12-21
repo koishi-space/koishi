@@ -1,10 +1,11 @@
 import React from "react";
+import "./defaultPages.css";
 
-// TODO: Implement 403 Forbidden page
 const ForbiddenPage = () => {
     return (
-       <div>
-           <h1>403 - forbidden</h1>
+       <div className="view main">
+           <h1>403</h1>
+           <h3>Access forbidden</h3>
        </div>
     );
 }

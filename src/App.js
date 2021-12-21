@@ -8,7 +8,7 @@ import PublicNavbar from "./components/common/publicNavbar/publicNavbar";
 import HomePage from "./pages/home/homePage";
 import LoginPage from "./pages/login/loginPage";
 import VerifyPage from "./pages/verify/verifyPage";
-import DashboardPage from "./pages/dashboard/dashboardPage";
+import AppRouter from "./pages/app/appRouter";
 import NotFoundPage from "./pages/default/notFoundPage";
 import ForbiddenPage from "./pages/default/forbiddenPage";
 import LogoutRoute from "./routes/logoutRoute";
@@ -36,7 +36,7 @@ class App extends Component {
           <Switch>
             {/* Main routes */}
             <Route path="/" exact component={HomePage} />
-            <AuthRoute path="/dashboard" component={DashboardPage} />
+            <AuthRoute path="/app" component={AppRouter} />
 
             {/* Account control routes */}
             <Route path="/login" component={LoginPage} />

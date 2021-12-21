@@ -14,8 +14,8 @@ const PublicNavbar = ({ user }) => {
           About
         </NavLink>
         {auth.getCurrentUser() ? (
-          <NavLink className="nav-link mg" to="/dashboard">
-            Dashboard
+          <NavLink className="nav-link mg" to="/app/dashboard">
+            App
           </NavLink>
         ) : (
           <NavLink className="nav-link mg" to="/get-started">
@@ -45,9 +45,6 @@ const PublicNavbar = ({ user }) => {
             </div>
           </div>
         ) : (
-          //   <Link className="nav-link">
-          //   <b>{user.name}</b>
-          // </Link>
           <Link className="nav-link mg" to="/login">
             <b>Login</b>
           </Link>

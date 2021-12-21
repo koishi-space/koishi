@@ -17,12 +17,12 @@ const HomePage = () => {
             typeSpeed={100}
             deleteSpeed={80}
             delaySpeed={2500}
-            words={["Collect", "Organize", "Vizualize"]}
+            words={["Collect", "Organize", "Visualize", "Understand"]}
           />your data.</h1>
           {/* <h1>Collect your data</h1> */}
           <p>The easiest data tool out there. Scalable to the moon. Unleash the potential of your data with Koishi.</p>
           {auth.getCurrentUser() ? 
-          <Link to="/dashboard" style={{width: "max-content"}}><Button text="Dashboard"/></Link>
+          <Link to="/app" style={{width: "max-content"}}><Button text="App"/></Link>
           :
           <Link to="/get-started" style={{width: "max-content"}}><Button text="Get started"/></Link>
           }

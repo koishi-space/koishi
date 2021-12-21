@@ -1,0 +1,31 @@
+.app {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 80px;
+    width: calc(100vw - 600px);
+    padding: 20px 300px;
+    background-color: whitesmoke;
+  }
+  
+  .app h1 {
+    color: black;
+    font-weight: 300;
+  }
+  
+  .app h1 span {
+    color: var(--blue);
+    font-weight: normal;
+  }
+  
+  .app-cards {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
