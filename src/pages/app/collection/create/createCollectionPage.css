@@ -1,0 +1,29 @@
+fieldset {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+fieldset input {
+    margin-right: 5px;
+}
+
+fieldset legend button  {
+    background-color: red;
+    border: none;
+    padding: 4px;
+    color: white;
+    border-radius: 4px;
+}
+fieldset legend button:hover {
+    cursor: pointer;
+}
+
+fieldset legend button:disabled {
+    background-color: grey;
+}
+
+fieldset legend button:disabled:hover {
+    cursor: not-allowed;
+}

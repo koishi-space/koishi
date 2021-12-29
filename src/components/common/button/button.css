@@ -9,6 +9,31 @@
     transition-duration: 0.3s;
 }
 
+.btn-outline {
+    text-decoration: none;
+    color: var(--blue);
+    font-size: large;
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    padding: 8px 15px;
+    background-color: white;
+    transition-duration: 0.3s;
+}
+
+.btn-outline:hover {
+    cursor: pointer;
+    background-color: #e9ebfa;
+}
+
+.btn:disabled {
+    background-color: grey;
+}
+
+.btn:disabled:hover {
+    cursor: not-allowed;
+    background-color: grey;
+}
+
 .btn:hover {
     cursor: pointer;
     background-color: var(--dark-blue);
