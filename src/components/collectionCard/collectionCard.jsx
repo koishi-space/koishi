@@ -1,12 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
+import {Redirect} from "react-router-dom";
 import "./collectionCard.css";
 
-const GraphCard = ({title, inside, onSelect}) => {
-    return (
-        <div onClick={onSelect} className="graph-card-body">
-            <img alt="Graph card image"  />
+const CollectionCard = ({collection}) => {
+    let [redirect, setRedirect] = useState(false);
+    return redirect ? (
+        <Redirect to={`/app/collection/${collection._id}/view`} />) :
+        (<div onClick={() => setRedirect(true)} className="collection-card-body">
+            <div>
+                <p>{collection.title}</p>
+            </div>
         </div>
     );
 }
 
-export default GraphCard;
+export default CollectionCard;

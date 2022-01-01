@@ -22,7 +22,7 @@ const HomePage = () => {
           {/* <h1>Collect your data</h1> */}
           <p>The easiest data tool out there. Scalable to the moon. Unleash the potential of your data with Koishi.</p>
           {auth.getCurrentUser() ? 
-          <Link to="/app" style={{width: "max-content"}}><Button text="App"/></Link>
+          <Link to="/app/dashboard" style={{width: "max-content"}}><Button text="App"/></Link>
           :
           <Link to="/get-started" style={{width: "max-content"}}><Button text="Get started"/></Link>
           }

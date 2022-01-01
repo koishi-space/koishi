@@ -28,6 +28,12 @@
     font-size: larger;
     transition-duration: 0.3s;
 }
+.nav-link-active {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: larger;
+    transition-duration: 0.3s;
+}
 .nav-link:hover {
     color: var(--blue);
     cursor: pointer;

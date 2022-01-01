@@ -1,0 +1,82 @@
+.collection-edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.collection-edit-table-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+}
+
+.edit-collection-delete-icon {
+  color: red;
+  font-size: small;
+}
+
+.edit-collection-delete-icon:hover {
+  cursor: pointer;
+}
+
+table {
+  margin: 40px auto 20px auto;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 5px 20px;
+}
+th {
+  background-color: white;
+}
+/* tr {border-bottom: 1px solid #C0C0C0;} */
+th:first-child,
+td:first-child {
+  text-align: left;
+}
+th:last-child,
+td:last-child {
+  text-align: right;
+}
+th:nth-child(2),
+td:nth-child(2) {
+  text-align: left;
+}
+tr:nth-child(odd) {
+  background-color: #e0e0e0;
+}
+
+.edit-collection-page-modal {
+  position: relative;
+  box-sizing: border-box;
+  width: 40vw;
+  height: 40vh;
+  margin-left: calc(60vw / 2);
+  margin-top: calc(60vh / 2);
+  border-radius: 8px;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 30px;
+}
+
+.edit-collection-page-modal h1 {
+  margin-bottom: 8px;
+}
+
+.edit-collection-page-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(200, 200, 200, 0.7);
+}

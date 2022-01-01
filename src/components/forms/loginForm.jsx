@@ -49,7 +49,7 @@ const LoginForm = () => {
             // TODO: fix spaghetti code below (https://stackoverflow.com/questions/39833140/react-how-do-i-access-a-component-from-another-component)
             // there is a better way to do the following - via hooks, not by reloading the whole page
             // however it is like this just for now for simplicity
-            window.location = "/";
+            window.location = "/app/dashboard";
             // setRedirect(true);
           } else {
             setInvalidLogin(true);

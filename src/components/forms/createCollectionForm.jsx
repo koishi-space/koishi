@@ -14,15 +14,16 @@ const CreateCollectionForm = () => {
   const getRandomKey = () => Math.floor(Math.random() * 1000000);
 
   const dataTypes = [
-    { id: 0, type: "string" },
+    { id: 0, type: "text" },
     { id: 1, type: "number" },
     { id: 2, type: "date" },
     { id: 3, type: "bool" },
   ];
   const [columns, setColumns] = useState([
-    { key: getRandomKey(), columnName: "", dataType: "string" },
+    { key: getRandomKey(), columnName: "", dataType: "text" },
   ]);
   const [submitError, setSubmitError] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const collectionSchema = Yup.object().shape({
     title: Yup.string()
@@ -37,8 +38,8 @@ const CreateCollectionForm = () => {
 
   const dataTypeSchema = Yup.string()
     .matches(
-      /^(string|number|date|bool)$/,
-      "Can be one of [string, number, date, bool]"
+      /^(text|number|date|bool)$/,
+      "Can be one of [text, number, date, bool]"
     )
     .required("Boy you gotta select something here :(");
 
@@ -105,7 +106,7 @@ const CreateCollectionForm = () => {
             formData.model = columns.map(({ key, ...attrs }) => attrs);
             await collectionsService.createCollection(formData);
             setSubmitting(false);
-            return <Redirect to="/app/dashboard" />;
+            setRedirect(true);
           } else setColumns(cols);
           console.log("Column validation failed!");
           console.log(columns);
@@ -206,6 +207,7 @@ const CreateCollectionForm = () => {
           )
         }
       </Formik>
+      {redirect && <Redirect to="/app/dashboard" />}
     </React.Fragment>
   );
 };

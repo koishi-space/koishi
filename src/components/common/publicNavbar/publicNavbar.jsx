@@ -10,22 +10,22 @@ const PublicNavbar = ({ user }) => {
         <h1>Koishi</h1>
       </Link>
       <div className="nav">
-        <NavLink className="nav-link mg" to="/about">
+        <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/about">
           About
         </NavLink>
         {auth.getCurrentUser() ? (
-          <NavLink className="nav-link mg" to="/app/dashboard">
+          <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/app/dashboard">
             App
           </NavLink>
         ) : (
-          <NavLink className="nav-link mg" to="/get-started">
+          <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/get-started">
             Get started
           </NavLink>
         )}
-        <NavLink className="nav-link mg" to="/api">
+        <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/api">
           API
         </NavLink>
-        <NavLink className="nav-link mg" to="/docs">
+        <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/docs">
           Docs
         </NavLink>
         {user ? (
@@ -36,7 +36,7 @@ const PublicNavbar = ({ user }) => {
               </b>
             </a>
             <div className="dropdown-content">
-              <NavLink className="nav-link" to="/profile">
+              <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/profile">
                 Profile
               </NavLink>
               <NavLink className="nav-link" to="/logout">
@@ -45,9 +45,9 @@ const PublicNavbar = ({ user }) => {
             </div>
           </div>
         ) : (
-          <Link className="nav-link mg" to="/login">
+          <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/login">
             <b>Login</b>
-          </Link>
+          </NavLink>
         )}
       </div>
     </div>

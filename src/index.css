@@ -27,10 +27,23 @@ hr {
 }
 
 .view {
-  margin-top: 80px;
-  width: calc(100vw - 600px);
-  padding: 0 300px;
+  padding-top: 80px;
+  padding-left: 300px;
+  padding-right: 300px;
+  width: 100vw;
   background-color: whitesmoke;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.view-small-border {
+  padding-top: 80px;
+  padding-left: 100px;
+  padding-right: 100px;
+  width: 100vw;
+  background-color: whitesmoke;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 .shadow {

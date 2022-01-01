@@ -4,7 +4,7 @@ import DashboardPage from "./dashboard/dashboardPage";
 import CreateCollectionPage from "./collection/create/createCollectionPage";
 import ViewCollectionPage from "./collection/view/viewCollectionPage";
 import EditCollectionPage from "./collection/edit/editCollectionPage";
-import NotFoundPage from "../default/notFoundPage";
+import CollectionOptionsPage from "./collection/options/collectionOptionsPage";
 
 const AppRouter = () => {
   return (
@@ -13,6 +13,7 @@ const AppRouter = () => {
       <Route path="/app/collection/create" exact component={CreateCollectionPage} />
       <Route path="/app/collection/:id/view" component={ViewCollectionPage} />
       <Route path="/app/collection/:id/edit" component={EditCollectionPage} />
+      <Route path="/app/collection/:id/options" component={CollectionOptionsPage} />
       <Redirect to="/not-found" />
     </Switch>
   );

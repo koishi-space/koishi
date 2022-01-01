@@ -1,0 +1,48 @@
+.workspace-nav-btn {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    padding: 8px 15px;
+    background-color: var(--blue);
+    transition-duration: 0.3s;
+}
+
+.workspace-nav-btn-outline {
+    text-decoration: none;
+    color: var(--blue);
+    font-size: larger;
+    border: 1px solid var(--blue);
+    border-radius: 4px;
+    padding: 8px 15px;
+    background-color: white;
+    transition-duration: 0.3s;
+}
+
+.workspace-nav-btn-outline:hover {
+    cursor: pointer;
+    background-color: #e9ebfa;
+}
+
+.workspace-nav-btn:disabled {
+    background-color: grey;
+}
+
+.workspace-nav-btn:disabled:hover {
+    cursor: not-allowed;
+    background-color: grey;
+}
+
+.workspace-nav-btn:hover {
+    cursor: pointer;
+    background-color: var(--dark-blue);
+}
+
+.workspace-nav-btn:active {
+    cursor: pointer;
+    background-color: var(--dark-blue);
+    box-shadow: 3px 5px 3px 0px rgba(36,64,201,0.26);
+    -webkit-box-shadow: 3px 5px 3px 0px rgba(36,64,201,0.26);
+    -moz-box-shadow: 3px 5px 3px 0px rgba(36,64,201,0.26);
+}

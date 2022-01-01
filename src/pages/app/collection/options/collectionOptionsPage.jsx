@@ -1,9 +1,9 @@
 import React from "react";
 import WorkspaceNav from "../../../../components/workspaceNav/workspaceNav";
-import "./viewCollectionPage.css";
+import "./collectionOptionsPage.css";
 
 // TODO: implement ViewCollectionPage
-class ViewCollectionPage extends React.Component {
+class CollectionOptionsPage extends React.Component {
   state = {
     collection: "",
   };
@@ -17,4 +17,4 @@ class ViewCollectionPage extends React.Component {
   }
 }
 
-export default ViewCollectionPage;
+export default CollectionOptionsPage;
