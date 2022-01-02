@@ -12,6 +12,8 @@
   align-items: center;
   width: 100%;
   background-color: white;
+  padding-bottom: 20px;
+  border-radius: 8px;
 }
 
 .edit-collection-delete-icon {

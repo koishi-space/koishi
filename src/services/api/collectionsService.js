@@ -13,9 +13,28 @@ export async function getCollection(collectionId) {
   return http.get(`${apiEndpoint}/${collectionId}`);
 }
 
+// get one exact collection but do not populate its fields
+export async function getCollectionNoPopulate(collectionId) {
+  return http.get(`${apiEndpoint}/${collectionId}?noPopulate`);
+}
+
 // create new collection
 export async function createCollection(collection) {
   return http.post(apiEndpoint, collection);
+}
+
+// edit collection
+export async function editCollection(collectionId, payload) {
+  return http.put(`${apiEndpoint}/${collectionId}`, payload);
+}
+
+// delete a collection
+export async function deleteCollection(collectionId, actionToken) {
+  if (!actionToken) return http.delete(`${apiEndpoint}/${collectionId}`);
+  else
+    return http.delete(
+      `${apiEndpoint}/${collectionId}?actionToken=${actionToken}`
+    );
 }
 
 // ===Model===
@@ -32,16 +51,12 @@ export async function getCollectionData(collectionId) {
 
 // add new row to the collection data
 export async function addRowToCollection(collectionId, newRow) {
-  return http.post(
-    `${apiEndpoint}/${collectionId}/data`, newRow
-  );
+  return http.post(`${apiEndpoint}/${collectionId}/data`, newRow);
 }
 
 // delete row on a certain index
 export async function deleteRow(collectionId, rowIndex) {
-  return http.delete(
-    `${apiEndpoint}/${collectionId}/data/${rowIndex}`
-  );
+  return http.delete(`${apiEndpoint}/${collectionId}/data/${rowIndex}`);
 }
 
 export default {

@@ -3,7 +3,7 @@ import Spinner from "../../../../components/common/spinner/spinner";
 import Input from "../../../../components/common/input/input";
 import WorkspaceNav from "../../../../components/workspaceNav/workspaceNav";
 import Button from "../../../../components/common/button/button";
-import * as collectionsSerivice from "../../../../services/api/collectionsService";
+import * as collectionsService from "../../../../services/api/collectionsService";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import "./editCollectionPage.css";
 import ReactModal from "react-modal";
@@ -20,11 +20,11 @@ class EditCollectionPage extends React.Component {
   };
 
   componentDidMount() {
-    collectionsSerivice
+    collectionsService
       .getCollectionModel(this.props.match.params.id)
       .then(({ data }) => {
         this.setState({ model: data });
-        collectionsSerivice
+        collectionsService
           .getCollectionData(this.props.match.params.id)
           .then(({ data }) => {
             this.setState({ data, loading: false });
@@ -41,7 +41,7 @@ class EditCollectionPage extends React.Component {
   };
 
   handleDeleteRow = async (index) => {
-    await collectionsSerivice.deleteRow(this.props.match.params.id, index);
+    await collectionsService.deleteRow(this.props.match.params.id, index);
     toast.warn("Row deleted.")
     let data = this.state.data;
     data.value.splice(index, 1);
@@ -114,7 +114,7 @@ class EditCollectionPage extends React.Component {
                     for (let [k, v] of Object.entries(this.state.newRow)) {
                       rowToSubmit.push({ column: k, data: v });
                     }
-                    collectionsSerivice
+                    collectionsService
                       .addRowToCollection(this.props.match.params.id, rowToSubmit)
                       .then(({ data }) => {
                         toast.success(data);

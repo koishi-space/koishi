@@ -1,5 +1,7 @@
 :root {
   --blue: #1138f7;
+  --success: #07bc0c;
+  --warning: #f1c40f;
   --dark-blue: #2440C9;
   --grey: #7f7f7f;
 }
@@ -50,4 +52,16 @@ hr {
   box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
   -webkit-box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
   -moz-box-shadow: 3px 5px 3px 0px rgba(0,0,0,0.26);
+}
+
+.c-success {
+  color: var(--success);
+}
+
+.c-warning {
+  color: var(--warning);
+}
+
+.c-def {
+  color: var(--blue)
 }
