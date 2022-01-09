@@ -17,7 +17,8 @@ const CreateCollectionForm = () => {
     { id: 0, type: "text" },
     { id: 1, type: "number" },
     { id: 2, type: "date" },
-    { id: 3, type: "bool" },
+    { id: 3, type: "time" },
+    { id: 4, type: "bool" },
   ];
   const [columns, setColumns] = useState([
     { key: getRandomKey(), columnName: "", dataType: "text" },
@@ -38,8 +39,8 @@ const CreateCollectionForm = () => {
 
   const dataTypeSchema = Yup.string()
     .matches(
-      /^(text|number|date|bool)$/,
-      "Can be one of [text, number, date, bool]"
+      /^(text|number|date|time|bool)$/,
+      "Can be one of [text, number, date, time, bool]"
     )
     .required("Boy you gotta select something here :(");
 

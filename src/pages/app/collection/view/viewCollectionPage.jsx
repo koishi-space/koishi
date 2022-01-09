@@ -10,8 +10,11 @@ class ViewCollectionPage extends React.Component {
 
   render() {
     return (
-      <div className="view collection-edit">
+      <div className="view collection-view">
         <WorkspaceNav collectionId={this.props.match.params.id} />
+        <div className="collection-view-div">
+          
+        </div>
       </div>
     );
   }

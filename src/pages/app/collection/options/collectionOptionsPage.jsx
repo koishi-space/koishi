@@ -11,10 +11,14 @@ import {
   deleteCollection,
   editCollection,
 } from "../../../../services/api/collectionsService";
+import {
+  exportCollectionAsJSON
+} from "../../../../services/api/toolsService";
 import ConfirmDialog from "../../../../components/common/confirmDialog/confirmDialog";
 import "./collectionOptionsPage.css";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
+import download from 'downloadjs';
 
 // TODO: implement ViewCollectionPage
 class CollectionOptionsPage extends React.Component {
@@ -46,6 +50,14 @@ class CollectionOptionsPage extends React.Component {
           }),
       })
     );
+  };
+
+  handleExportCollection = async (exportType) => {
+    if (exportType === "json") {
+        const res = await exportCollectionAsJSON(this.state.collection._id);
+        const blob = await res.blob();
+        download(blob, this.state.collection.title.trim() + ".json");
+    }
   };
 
   render() {
@@ -124,9 +136,13 @@ class CollectionOptionsPage extends React.Component {
             <div className="collection-options-content-div">
               <h2>Export</h2>
               <div>
-                <Button style={{ margin: "10px" }} text="Export to Excel" />
-                <Button style={{ margin: "10px" }} text="Export as JSON" />
-                <Button style={{ margin: "10px" }} text="Export as XML" />
+                <Button style={{ margin: "10px" }} text="Excel" />
+                <Button
+                  style={{ margin: "10px" }}
+                  onClick={() => this.handleExportCollection("json")}
+                  text="JSON {}"
+                />
+                <Button style={{ margin: "10px" }} text="XML </>" />
               </div>
             </div>
           </React.Fragment>
