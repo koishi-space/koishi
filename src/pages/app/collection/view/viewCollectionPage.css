@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    height: 100vh;
+    overflow-y: hidden;
 }
 
 .collection-view-div {
@@ -13,5 +15,62 @@
   width: 100%;
   background-color: white;
   padding-bottom: 20px;
+  padding-top: 20px;
   border-radius: 8px;
+  overflow-y: scroll;
+  margin-bottom: 40px;
+}
+.collection-view-div > div > div:first-child {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20px;
+  color: var(--blue);
+}
+
+.collection-view-div > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.collection-view-div > div > div:first-child svg{
+  margin-left: 20px;
+}
+
+.collection-view-div > div > div:first-child svg:hover {
+  cursor: pointer;
+}
+
+.view-collection-page-modal {
+  position: relative;
+  box-sizing: border-box;
+  width: 40vw;
+  height: 40vh;
+  margin-left: calc(60vw / 2);
+  margin-top: calc(60vh / 2);
+  border-radius: 8px;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  overflow-y: scroll;
+}
+
+.view-collection-page-modal h1 {
+  margin-bottom: 8px;
+}
+
+.view-collection-page-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(200, 200, 200, 0.7);
 }

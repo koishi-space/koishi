@@ -73,7 +73,7 @@ const CreateCollectionForm = () => {
           // TODO: Validation and form reset
           /*
                 For now, the only validated field is "Collection title".
-                User has no way of knowing why the form submittion failed in the following cases:
+                User has no way of knowing why the form submit failed in the following cases:
                 - Validation failed for one of the columns
                 - Collection title duplicite
                 - Column name duplicite (no validation for that at all)

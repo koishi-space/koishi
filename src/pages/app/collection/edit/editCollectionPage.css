@@ -3,6 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .collection-edit-table-div {
@@ -14,6 +16,8 @@
   background-color: white;
   padding-bottom: 20px;
   border-radius: 8px;
+  overflow-y: scroll;
+  margin-bottom: 40px;
 }
 
 .edit-collection-delete-icon {

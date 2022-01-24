@@ -59,7 +59,27 @@ export async function deleteRow(collectionId, rowIndex) {
   return http.delete(`${apiEndpoint}/${collectionId}/data/${rowIndex}`);
 }
 
+// ===Settings===
+// get collection settings
+export async function getCollectionSettings(collectionId) {
+  return http.get(`${apiEndpoint}/${collectionId}/settings`);
+}
+
+// save collection settings
+export async function saveCollectionSettings(collectionId, settings) {
+  return http.put(`${apiEndpoint}/${collectionId}/settings`, settings);
+}
+
 export default {
-  createCollection,
   getCollections,
+  getCollection,
+  getCollectionNoPopulate,
+  createCollection,
+  editCollection,
+  deleteCollection,
+  getCollectionModel,
+  getCollectionData,
+  addRowToCollection,
+  deleteRow,
+  getCollectionSettings,
 };

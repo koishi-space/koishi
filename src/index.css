@@ -65,3 +65,7 @@ hr {
 .c-def {
   color: var(--blue)
 }
+
+.ml10 {
+  margin-left: 10px;
+}
