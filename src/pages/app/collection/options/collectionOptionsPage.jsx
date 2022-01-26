@@ -10,15 +10,14 @@ import {
   getCollectionNoPopulate,
   deleteCollection,
   editCollection,
+  resetCollectionSettings,
 } from "../../../../services/api/collectionsService";
-import {
-  exportCollectionAsJSON
-} from "../../../../services/api/toolsService";
+import { exportCollectionAsJSON } from "../../../../services/api/toolsService";
 import ConfirmDialog from "../../../../components/common/confirmDialog/confirmDialog";
 import "./collectionOptionsPage.css";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
-import download from 'downloadjs';
+import download from "downloadjs";
 
 // TODO: implement ViewCollectionPage
 class CollectionOptionsPage extends React.Component {
@@ -52,11 +51,17 @@ class CollectionOptionsPage extends React.Component {
     );
   };
 
+  handleResetCollectionSettings = () => {
+    resetCollectionSettings(this.props.match.params.id).then(() => {
+      toast.warning("Collection settings reseted");
+    });
+  };
+
   handleExportCollection = async (exportType) => {
     if (exportType === "json") {
-        const res = await exportCollectionAsJSON(this.state.collection._id);
-        const blob = await res.blob();
-        download(blob, this.state.collection.title.trim() + ".json");
+      const res = await exportCollectionAsJSON(this.state.collection._id);
+      const blob = await res.blob();
+      download(blob, this.state.collection.title.trim() + ".json");
     }
   };
 
@@ -129,7 +134,14 @@ class CollectionOptionsPage extends React.Component {
               <div>
                 <Button
                   text="Delete collection"
+                  classes={["mb10"]}
                   onClick={this.handleDeleteCollection}
+                />
+              </div>
+              <div>
+                <Button
+                  text="Reset collection settings"
+                  onClick={this.handleResetCollectionSettings}
                 />
               </div>
             </div>

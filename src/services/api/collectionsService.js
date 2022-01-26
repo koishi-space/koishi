@@ -70,6 +70,11 @@ export async function saveCollectionSettings(collectionId, settings) {
   return http.put(`${apiEndpoint}/${collectionId}/settings`, settings);
 }
 
+// reset collection settings
+export async function resetCollectionSettings(collectionId) {
+  return http.put(`${apiEndpoint}/${collectionId}/settings/reset`);
+}
+
 export default {
   getCollections,
   getCollection,
@@ -82,4 +87,6 @@ export default {
   addRowToCollection,
   deleteRow,
   getCollectionSettings,
+  saveCollectionSettings,
+  resetCollectionSettings,
 };

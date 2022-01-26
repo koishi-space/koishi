@@ -1,15 +1,16 @@
 import React from "react";
-import WorkspaceNav from "../../../../components/workspaceNav/workspaceNav";
 import "./viewCollectionPage.css";
 import {
   getCollection,
   saveCollectionSettings,
 } from "../../../../services/api/collectionsService";
+import WorkspaceNav from "../../../../components/workspaceNav/workspaceNav";
+import SettingsIcon from "@mui/icons-material/Settings";
+import Select from "../../../../components/common/select/select";
+import BarGraphSettingsForm from "../../../../components/forms/barGraphSettingsForm";
 import Spinner from "../../../../components/common/spinner/spinner";
 import {
   Brush,
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -19,15 +20,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import ReactModal from "react-modal";
-import SettingsIcon from "@mui/icons-material/Settings";
-import Select from "../../../../components/common/select/select";
-import BarGraphSettingsForm from "../../../../components/forms/barGraphSettingsForm";
-import * as Yup from "yup";
-import * as Joi from "joi";
+import Joi from "joi";
 import { toast } from "react-toastify";
 
-// TODO: implement ViewCollectionPage
 class ViewCollectionPage extends React.Component {
   state = {
     loading: true,
@@ -105,6 +100,8 @@ class ViewCollectionPage extends React.Component {
     });
 
     const barSchema = Joi.object({
+      _id: Joi.any(),
+      __v: Joi.any(),
       dataKey: Joi.string().required(),
       fill: Joi.string()
         .regex(/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/)
@@ -126,17 +123,25 @@ class ViewCollectionPage extends React.Component {
 
   compAxisDomain = (domain, custom, dataKey) => {
     if (domain === "custom") return parseInt(custom);
-    if (domain === "dataMax") return Math.max.apply(Math, this.state.collection.data.value.map(function(o) { return o[dataKey]; }))
-    if (domain === "dataMin") return Math.min.apply(Math, this.state.collection.data.value.map(function(o) { return o[dataKey]; }))
+    if (domain === "dataMax")
+      return Math.max.apply(
+        Math,
+        this.state.collection.data.value.map(function (o) {
+          return o[dataKey];
+        })
+      );
+    if (domain === "dataMin")
+      return Math.min.apply(
+        Math,
+        this.state.collection.data.value.map(function (o) {
+          return o[dataKey];
+        })
+      );
     if (domain === "auto") return "auto";
-  }
+  };
 
   render() {
     const { settings } = this.state.collection;
-    if (!this.state.loading) {
-      console.log(this.state.collection);
-      console.log();
-    }
     return (
       <div className="view-small-border collection-view">
         {/* Workspace navigation */}
@@ -193,10 +198,23 @@ class ViewCollectionPage extends React.Component {
                               label={settings.barGraph.xAxis.label}
                               unit={settings.barGraph.xAxis.unit}
                               scale={settings.barGraph.xAxis.scale}
-                              domain={settings.barGraph.xAxis.type === "number" ? [
-                                this.compAxisDomain(settings.barGraph.xAxis.range.from, settings.barGraph.xAxis.range.fromCustom, settings.barGraph.xAxis.dataKey),
-                                this.compAxisDomain(settings.barGraph.xAxis.range.to, settings.barGraph.xAxis.range.toCustom, settings.barGraph.xAxis.dataKey)
-                              ] : undefined}
+                              domain={
+                                settings.barGraph.xAxis.type === "number"
+                                  ? [
+                                      this.compAxisDomain(
+                                        settings.barGraph.xAxis.range.from,
+                                        settings.barGraph.xAxis.range
+                                          .fromCustom,
+                                        settings.barGraph.xAxis.dataKey
+                                      ),
+                                      this.compAxisDomain(
+                                        settings.barGraph.xAxis.range.to,
+                                        settings.barGraph.xAxis.range.toCustom,
+                                        settings.barGraph.xAxis.dataKey
+                                      ),
+                                    ]
+                                  : undefined
+                              }
                             />
                             <YAxis
                               dataKey={settings.barGraph.yAxis.dataKey}
@@ -208,10 +226,23 @@ class ViewCollectionPage extends React.Component {
                               label={settings.barGraph.yAxis.label}
                               unit={settings.barGraph.yAxis.unit}
                               scale={settings.barGraph.yAxis.scale}
-                              domain={settings.barGraph.yAxis.type === "number" ? [
-                                this.compAxisDomain(settings.barGraph.yAxis.range.from, settings.barGraph.yAxis.range.fromCustom, settings.barGraph.yAxis.dataKey),
-                                this.compAxisDomain(settings.barGraph.yAxis.range.to, settings.barGraph.yAxis.range.toCustom, settings.barGraph.yAxis.dataKey)
-                              ] : undefined}
+                              domain={
+                                settings.barGraph.yAxis.type === "number"
+                                  ? [
+                                      this.compAxisDomain(
+                                        settings.barGraph.yAxis.range.from,
+                                        settings.barGraph.yAxis.range
+                                          .fromCustom,
+                                        settings.barGraph.yAxis.dataKey
+                                      ),
+                                      this.compAxisDomain(
+                                        settings.barGraph.yAxis.range.to,
+                                        settings.barGraph.yAxis.range.toCustom,
+                                        settings.barGraph.yAxis.dataKey
+                                      ),
+                                    ]
+                                  : undefined
+                              }
                             />
                             <Brush
                               dataKey={settings.barGraph.xAxis.dataKey}
@@ -220,7 +251,15 @@ class ViewCollectionPage extends React.Component {
                             />
                             <Tooltip />
                             <Legend />
-                            <Bar dataKey="Duration" fill="#8884d8" />
+                            {settings.barGraph.bars.map((bar) => (
+                              <Bar
+                                dataKey={bar.dataKey}
+                                fill={bar.fill}
+                                unit={bar.unit}
+                                name={bar.name}
+                                stackId={bar.stackId}
+                              />
+                            ))}
                           </BarChart>
                         </ResponsiveContainer>
                       ) : (
@@ -243,7 +282,8 @@ class ViewCollectionPage extends React.Component {
                           this.state.collection.settings.barGraph
                         }
                         collectionModel={this.state.collection.model}
-                        handleSettingsChanged={this.handleSaveSettings}
+                        handleSaveSettings={this.handleSaveSettings}
+                        handleCloseSettings={this.handleCloseSettings}
                       />
                     </React.Fragment>
                   )}
@@ -252,17 +292,6 @@ class ViewCollectionPage extends React.Component {
             </div>
           )}
         </div>
-
-        {/* Graph config modal */}
-        {/* <ReactModal
-          isOpen={this.state.settingsOpened}
-          className="view-collection-page-modal"
-          overlayClassName="view-collection-page-modal-overlay"
-          onRequestClose={this.handleCloseSettings}
-          shouldCloseOnOverlayClick={true}
-        >
-          
-        </ReactModal> */}
       </div>
     );
   }

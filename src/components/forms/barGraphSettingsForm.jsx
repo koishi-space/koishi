@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
+import React from "react";
+import { Formik, Form, FieldArray } from "formik";
 import Input from "../common/input/input";
-import Spinner from "../common/spinner/spinner";
 import Select from "../common/select/select";
 import Button from "../common/button/button";
 import Checkbox from "../common/checkbox/checkbox";
@@ -10,7 +8,8 @@ import Checkbox from "../common/checkbox/checkbox";
 const BarGraphSettingsForm = ({
   initialCollectionSettings: initialSettings,
   collectionModel,
-  handleSettingsChanged,
+  handleSaveSettings,
+  handleCloseSettings,
 }) => {
   let columns = [];
   for (const column of collectionModel.value) {
@@ -41,6 +40,14 @@ const BarGraphSettingsForm = ({
     { value: "log", text: "Log" },
   ];
 
+  let defaultBar = {
+    dataKey: "",
+    fill: "#8884d8",
+    unit: "",
+    name: "",
+    stackId: "",
+  };
+
   const formFieldStyle = {
     display: "flex",
     flexDirection: "row",
@@ -66,21 +73,34 @@ const BarGraphSettingsForm = ({
     justifyContent: "center",
   };
 
+  const barFieldStyle = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    alignItems: "center",
+    marginTop: "10px",
+    marginBottom: "10px",
+  };
+
   return (
     <React.Fragment>
       <Formik
         initialValues={initialSettings}
         validate={false}
-        onSubmit={(formData, { resetForm }) => {
-          formData.xAxis.range.fromCustom = formData.xAxis.range.fromCustom.toString();
-          formData.xAxis.range.toCustom = formData.xAxis.range.toCustom.toString();
-          formData.yAxis.range.fromCustom = formData.yAxis.range.fromCustom.toString();
-          formData.yAxis.range.toCustom = formData.yAxis.range.toCustom.toString();
-          
-          handleSettingsChanged(formData);
+        onSubmit={(formData) => {
+          formData.xAxis.range.fromCustom =
+            formData.xAxis.range.fromCustom.toString();
+          formData.xAxis.range.toCustom =
+            formData.xAxis.range.toCustom.toString();
+          formData.yAxis.range.fromCustom =
+            formData.yAxis.range.fromCustom.toString();
+          formData.yAxis.range.toCustom =
+            formData.yAxis.range.toCustom.toString();
+
+          handleSaveSettings(formData);
         }}
       >
-        {({ values, handleChange, setFieldValue }) => (
+        {({ values, handleChange }) => (
           <Form>
             <div style={axisFieldsetsContainerStyle}>
               {/* X axis */}
@@ -464,40 +484,88 @@ const BarGraphSettingsForm = ({
             </div>
 
             {/* Bars */}
-            <fieldset style={barsFieldsetStyle}>
-              {values.bars.map((bar) => (
-                <div key={bar}>
-                  <Select
-                    labelText="Y axis data key: "
-                    options={columns}
-                    textKey=" text"
-                    valueKey="value"
-                    placeholder="None selected"
-                    noError
-                    onChange={handleChange}
-                  />
-                  {/* <Button
-                    text="-"
+            <FieldArray
+              name="bars"
+              render={(arrayHelpers) => (
+                <fieldset style={barsFieldsetStyle}>
+                  <legend>Bars</legend>
+                  {values.bars.map((bar, index) => (
+                    <div key={index} style={barFieldStyle}>
+                      <Select
+                        labelText="Data key: "
+                        options={columns}
+                        textKey="text"
+                        valueKey="value"
+                        placeholder="None selected"
+                        outline
+                        noError
+                        name={`bars[${index}].dataKey`}
+                        onChange={handleChange}
+                        value={values.bars[index].dataKey}
+                      />
+                      <Input
+                        labelText="Bar color: "
+                        noError
+                        name={`bars[${index}].fill`}
+                        type="color"
+                        value={values.bars[index].fill}
+                        onChange={handleChange}
+                      />
+                      <Input
+                        labelText="Unit: "
+                        outlined
+                        noError
+                        name={`bars[${index}].unit`}
+                        type="text"
+                        value={values.bars[index].unit}
+                        onChange={handleChange}
+                      />
+                      <Input
+                        labelText="Name: "
+                        outlined
+                        noError
+                        name={`bars[${index}].name`}
+                        type="text"
+                        value={values.bars[index].name}
+                        onChange={handleChange}
+                      />
+                      <Input
+                        labelText="Stack Id: "
+                        noError
+                        outlined
+                        name={`bars[${index}].stackId`}
+                        type="text"
+                        value={values.bars[index].stackId}
+                        onChange={handleChange}
+                      />
+
+                      <Button
+                        text="-"
+                        outline
+                        type="button"
+                        onClick={() => arrayHelpers.remove(index)}
+                      />
+                    </div>
+                  ))}
+                  <Button
+                    text="+"
                     outline
                     type="button"
-                    onClick={() =>
-                      setFieldValue(
-                        "bars",
-                        values.bars.filter((b) => b !== bar)
-                      )
-                    }
-                  /> */}
-                </div>
-              ))}
-              <Button
-                text="+"
-                outline
-                type="button"
-                onClick={() => setFieldValue("bars", [...values.bars, {}])}
-              />
-              <div style={formFieldStyle}></div>
-            </fieldset>
-            <Button text="Save" type="submit" />
+                    onClick={() => arrayHelpers.push(defaultBar)}
+                  />
+                </fieldset>
+              )}
+            />
+            <div style={formFieldStyle}></div>
+            <Button
+              text="Close"
+              onClick={(e) => {
+                e.preventDefault();
+                handleCloseSettings();
+              }}
+              outline
+            />
+            <Button text="Save" classes={["ml10"]} type="submit" />
           </Form>
         )}
       </Formik>

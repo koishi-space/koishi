@@ -13,7 +13,7 @@
     "axios": "^0.24.0",
     "d3-scale": "^4.0.2",
     "downloadjs": "^1.4.7",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "express-favicon": "^2.0.1",
     "formik": "^2.2.9",
     "install": "^0.13.0",
@@ -25,6 +25,7 @@
     "path": "^0.12.7",
     "query-string": "^7.0.1",
     "react": "^17.0.2",
+    "react-color": "^2.19.3",
     "react-confirm-alert": "^2.7.0",
     "react-dom": "^17.0.2",
     "react-loader-spinner": "^4.0.0",
@@ -38,10 +39,12 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "prestart": "npm run build",
+    "start": "node server.js", 
+    "devrun": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-script eject"
   },
   "eslintConfig": {
     "extends": [
