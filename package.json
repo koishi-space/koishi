@@ -35,12 +35,13 @@
     "react-simple-typewriter": "^3.0.1",
     "react-toastify": "^8.1.0",
     "recharts": "^2.1.8",
+    "serve": "^13.0.2",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.11"
   },
   "scripts": {
     "prestart": "npm run build",
-    "start": "node server.js", 
+    "start": "serve -s build",
     "devrun": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
