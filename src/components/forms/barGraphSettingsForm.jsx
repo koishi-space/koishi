@@ -46,6 +46,7 @@ const BarGraphSettingsForm = ({
     unit: "",
     name: "",
     stackId: "",
+    hide: false,
   };
 
   const formFieldStyle = {
@@ -538,6 +539,13 @@ const BarGraphSettingsForm = ({
                         value={values.bars[index].stackId}
                         onChange={handleChange}
                       />
+                      <Checkbox
+                      labelText="Hide"
+                      name={`bars[${index}].hide`}
+                      noError
+                      value={values.bars[index].hide}
+                      onChange={handleChange}
+                    />
 
                       <Button
                         text="-"
@@ -556,8 +564,7 @@ const BarGraphSettingsForm = ({
                 </fieldset>
               )}
             />
-            <div style={formFieldStyle}></div>
-            <Button
+            <div style={{display: "flex", justifyContent: "center"}}><Button
               text="Close"
               onClick={(e) => {
                 e.preventDefault();
@@ -565,7 +572,8 @@ const BarGraphSettingsForm = ({
               }}
               outline
             />
-            <Button text="Save" classes={["ml10"]} type="submit" />
+            <Button text="Save" classes={["ml10"]} type="submit" /></div>
+            
           </Form>
         )}
       </Formik>

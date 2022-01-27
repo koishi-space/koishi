@@ -109,6 +109,7 @@ class ViewCollectionPage extends React.Component {
       unit: Joi.string().allow("").required(),
       name: Joi.string().allow("").required(),
       stackId: Joi.string().allow("").required(),
+      hide: Joi.boolean().allow("").required(),
     });
 
     const schema = Joi.object({
@@ -251,15 +252,18 @@ class ViewCollectionPage extends React.Component {
                             />
                             <Tooltip />
                             <Legend />
-                            {settings.barGraph.bars.map((bar) => (
-                              <Bar
-                                dataKey={bar.dataKey}
-                                fill={bar.fill}
-                                unit={bar.unit}
-                                name={bar.name}
-                                stackId={bar.stackId}
-                              />
-                            ))}
+                            {settings.barGraph.bars.map(
+                              (bar) =>
+                                !bar.hide && (
+                                  <Bar
+                                    dataKey={bar.dataKey}
+                                    fill={bar.fill}
+                                    unit={bar.unit}
+                                    name={bar.name}
+                                    stackId={bar.stackId}
+                                  />
+                                )
+                            )}
                           </BarChart>
                         </ResponsiveContainer>
                       ) : (
