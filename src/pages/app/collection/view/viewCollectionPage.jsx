@@ -7,18 +7,20 @@ import {
 import WorkspaceNav from "../../../../components/workspaceNav/workspaceNav";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Select from "../../../../components/common/select/select";
-import BarGraphSettingsForm from "../../../../components/forms/barGraphSettingsForm";
+import ComposedGraphSettingsForm from "../../../../components/forms/composedGraphSettingsForm";
 import Spinner from "../../../../components/common/spinner/spinner";
 import {
   Brush,
-  BarChart,
   Bar,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ComposedChart,
+  Area,
 } from "recharts";
 import Joi from "joi";
 import { toast } from "react-toastify";
@@ -28,11 +30,10 @@ class ViewCollectionPage extends React.Component {
     loading: true,
     collection: "",
     settingsOpened: false,
-    graphVariant: "bar",
+    graphVariant: "composed",
     graphVariants: [
       { key: "", value: "Select chart variant" },
-      { key: "bar", value: "Bar graph" },
-      { key: "line", value: "Line graph" },
+      { key: "composed", value: "Composed graph" },
     ],
   };
 
@@ -66,7 +67,7 @@ class ViewCollectionPage extends React.Component {
 
   handleSaveSettings = (newSettings) => {
     let collection = this.state.collection;
-    collection.settings.barGraph = newSettings;
+    collection.settings.composedGraph = newSettings;
     this.setState({ collection });
     this.handleCloseSettings();
     saveCollectionSettings(collection._id, collection.settings).then(() =>
@@ -102,23 +103,94 @@ class ViewCollectionPage extends React.Component {
     const barSchema = Joi.object({
       _id: Joi.any(),
       __v: Joi.any(),
-      dataKey: Joi.string().required(),
+      dataKey: Joi.string().allow("").required(),
       fill: Joi.string()
         .regex(/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/)
         .required(),
       unit: Joi.string().allow("").required(),
       name: Joi.string().allow("").required(),
       stackId: Joi.string().allow("").required(),
-      hide: Joi.boolean().allow("").required(),
+      hide: Joi.boolean().required(),
+    });
+
+    const lineSchema = Joi.object({
+      _id: Joi.any(),
+      __v: Joi.any(),
+      dataKey: Joi.string().allow("").required(),
+      lineType: Joi.string()
+        .allow(
+          "basis",
+          "basisClosed",
+          "basisOpen",
+          "linear",
+          "linearClosed",
+          "natural",
+          "monotone",
+          "monotoneX",
+          "monotoneY",
+          "step",
+          "stepBefore",
+          "stepAfter"
+        )
+        .required(),
+      stroke: Joi.string()
+        .regex(/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/)
+        .required(),
+      dot: Joi.boolean().required(),
+      activeDot: Joi.boolean().required(),
+      label: Joi.boolean().required(),
+      strokeWidth: Joi.number().min(1).max(20).required(),
+      connectNulls: Joi.boolean().required(),
+      unit: Joi.string().allow("").required(),
+      name: Joi.string().allow("").required(),
+      hide: Joi.boolean().required(),
+    });
+
+    const areaSchema = Joi.object({
+      _id: Joi.any(),
+      __v: Joi.any(),
+      dataKey: Joi.string().allow("").required(),
+      lineType: Joi.string()
+        .allow(
+          "basis",
+          "basisClosed",
+          "basisOpen",
+          "linear",
+          "linearClosed",
+          "natural",
+          "monotone",
+          "monotoneX",
+          "monotoneY",
+          "step",
+          "stepBefore",
+          "stepAfter"
+        )
+        .required(),
+      stroke: Joi.string()
+        .regex(/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/)
+        .allow("")
+        .required(),
+      dot: Joi.boolean().required(),
+      activeDot: Joi.boolean().required(),
+      label: Joi.boolean().required(),
+      connectNulls: Joi.boolean().required(),
+      unit: Joi.string().allow("").required(),
+      name: Joi.string().allow("").required(),
+      stackId: Joi.string().allow("").required(),
+      hide: Joi.boolean().required(),
     });
 
     const schema = Joi.object({
       xAxis: axisSettingsSchema.required(),
       yAxis: axisSettingsSchema.required(),
       bars: Joi.array().items(barSchema),
-    });
+      lines: Joi.array().items(lineSchema),
+      areas: Joi.array().items(areaSchema),
+    }).required();
 
     const { error } = schema.validate(settingsPayload);
+    if (error) console.log(error.details[0].message);
+    console.log("validated");
     return error ? false : true;
   }
 
@@ -173,13 +245,13 @@ class ViewCollectionPage extends React.Component {
               {!this.state.settingsOpened && (
                 <React.Fragment>
                   {/* Bar Graph */}
-                  {this.state.graphVariant === "bar" && (
+                  {this.state.graphVariant === "composed" && (
                     <React.Fragment>
                       {this.validateBarChart(
-                        this.state.collection.settings.barGraph
+                        this.state.collection.settings.composedGraph
                       ) ? (
                         <ResponsiveContainer width="80%" height={500}>
-                          <BarChart
+                          <ComposedChart
                             data={this.state.collection.data.value}
                             margin={{
                               top: 5,
@@ -190,69 +262,71 @@ class ViewCollectionPage extends React.Component {
                           >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis
-                              dataKey={settings.barGraph.xAxis.dataKey}
-                              type={settings.barGraph.xAxis.type}
-                              hide={settings.barGraph.xAxis.hide}
+                              dataKey={settings.composedGraph.xAxis.dataKey}
+                              type={settings.composedGraph.xAxis.type}
+                              hide={settings.composedGraph.xAxis.hide}
                               allowDecimals={
-                                settings.barGraph.xAxis.allowDecimals
+                                settings.composedGraph.xAxis.allowDecimals
                               }
-                              label={settings.barGraph.xAxis.label}
-                              unit={settings.barGraph.xAxis.unit}
-                              scale={settings.barGraph.xAxis.scale}
+                              label={settings.composedGraph.xAxis.label}
+                              unit={settings.composedGraph.xAxis.unit}
+                              scale={settings.composedGraph.xAxis.scale}
                               domain={
-                                settings.barGraph.xAxis.type === "number"
+                                settings.composedGraph.xAxis.type === "number"
                                   ? [
                                       this.compAxisDomain(
-                                        settings.barGraph.xAxis.range.from,
-                                        settings.barGraph.xAxis.range
+                                        settings.composedGraph.xAxis.range.from,
+                                        settings.composedGraph.xAxis.range
                                           .fromCustom,
-                                        settings.barGraph.xAxis.dataKey
+                                        settings.composedGraph.xAxis.dataKey
                                       ),
                                       this.compAxisDomain(
-                                        settings.barGraph.xAxis.range.to,
-                                        settings.barGraph.xAxis.range.toCustom,
-                                        settings.barGraph.xAxis.dataKey
+                                        settings.composedGraph.xAxis.range.to,
+                                        settings.composedGraph.xAxis.range
+                                          .toCustom,
+                                        settings.composedGraph.xAxis.dataKey
                                       ),
                                     ]
                                   : undefined
                               }
                             />
                             <YAxis
-                              dataKey={settings.barGraph.yAxis.dataKey}
-                              type={settings.barGraph.yAxis.type}
-                              hide={settings.barGraph.yAxis.hide}
+                              dataKey={settings.composedGraph.yAxis.dataKey}
+                              type={settings.composedGraph.yAxis.type}
+                              hide={settings.composedGraph.yAxis.hide}
                               allowDecimals={
-                                settings.barGraph.yAxis.allowDecimals
+                                settings.composedGraph.yAxis.allowDecimals
                               }
-                              label={settings.barGraph.yAxis.label}
-                              unit={settings.barGraph.yAxis.unit}
-                              scale={settings.barGraph.yAxis.scale}
+                              label={settings.composedGraph.yAxis.label}
+                              unit={settings.composedGraph.yAxis.unit}
+                              scale={settings.composedGraph.yAxis.scale}
                               domain={
-                                settings.barGraph.yAxis.type === "number"
+                                settings.composedGraph.yAxis.type === "number"
                                   ? [
                                       this.compAxisDomain(
-                                        settings.barGraph.yAxis.range.from,
-                                        settings.barGraph.yAxis.range
+                                        settings.composedGraph.yAxis.range.from,
+                                        settings.composedGraph.yAxis.range
                                           .fromCustom,
-                                        settings.barGraph.yAxis.dataKey
+                                        settings.composedGraph.yAxis.dataKey
                                       ),
                                       this.compAxisDomain(
-                                        settings.barGraph.yAxis.range.to,
-                                        settings.barGraph.yAxis.range.toCustom,
-                                        settings.barGraph.yAxis.dataKey
+                                        settings.composedGraph.yAxis.range.to,
+                                        settings.composedGraph.yAxis.range
+                                          .toCustom,
+                                        settings.composedGraph.yAxis.dataKey
                                       ),
                                     ]
                                   : undefined
                               }
                             />
                             <Brush
-                              dataKey={settings.barGraph.xAxis.dataKey}
+                              dataKey={settings.composedGraph.xAxis.dataKey}
                               height={30}
                               stroke="#8884d8"
                             />
                             <Tooltip />
                             <Legend />
-                            {settings.barGraph.bars.map(
+                            {settings.composedGraph.bars.map(
                               (bar) =>
                                 !bar.hide && (
                                   <Bar
@@ -264,7 +338,43 @@ class ViewCollectionPage extends React.Component {
                                   />
                                 )
                             )}
-                          </BarChart>
+                            {settings.composedGraph.lines.map(
+                              (line) =>
+                                !line.hide && (
+                                  <Line
+                                    dataKey={line.dataKey}
+                                    type={line.lineType}
+                                    stroke={line.stroke}
+                                    dot={line.dot}
+                                    activeDot={line.activeDot}
+                                    label={line.label}
+                                    strokeWidth={line.strokeWidth}
+                                    connectNulls={line.connectNulls}
+                                    unit={line.unit}
+                                    name={line.name}
+                                    hide={line.hide}
+                                  />
+                                )
+                            )}
+                            {settings.composedGraph.areas.map(
+                              (area) =>
+                                !area.hide && (
+                                  <Area
+                                    dataKey={area.dataKey}
+                                    type={area.lineType}
+                                    stroke={area.stroke}
+                                    dot={area.dot}
+                                    activeDot={area.activeDot}
+                                    label={area.label}
+                                    connectNulls={area.connectNulls}
+                                    unit={area.unit}
+                                    name={area.name}
+                                    stackId={area.stackId}
+                                    hide={area.hide}
+                                  />
+                                )
+                            )}
+                          </ComposedChart>
                         </ResponsiveContainer>
                       ) : (
                         <p>Bar chart settings is not complete.</p>
@@ -277,13 +387,13 @@ class ViewCollectionPage extends React.Component {
               {/* Graph settings section */}
               {this.state.settingsOpened && (
                 <React.Fragment>
-                  {this.state.graphVariant === "bar" && (
+                  {this.state.graphVariant === "composed" && (
                     // Bar graph settings
                     <React.Fragment>
                       <h1>Graph settings</h1>
-                      <BarGraphSettingsForm
+                      <ComposedGraphSettingsForm
                         initialCollectionSettings={
-                          this.state.collection.settings.barGraph
+                          this.state.collection.settings.composedGraph
                         }
                         collectionModel={this.state.collection.model}
                         handleSaveSettings={this.handleSaveSettings}

@@ -5,7 +5,7 @@ import Select from "../common/select/select";
 import Button from "../common/button/button";
 import Checkbox from "../common/checkbox/checkbox";
 
-const BarGraphSettingsForm = ({
+const ComposedGraphSettingsForm = ({
   initialCollectionSettings: initialSettings,
   collectionModel,
   handleSaveSettings,
@@ -40,9 +40,52 @@ const BarGraphSettingsForm = ({
     { value: "log", text: "Log" },
   ];
 
+  let lineTypes = [
+    { value: "natural", text: "Natural" },
+    { value: "linear", text: "Linear" },
+    { value: "linearClosed", text: "Linear closed" },
+    { value: "monotone", text: "Monotone" },
+    { value: "monotoneX", text: "Monotone - X" },
+    { value: "monotoneY", text: "Monotone - Y" },
+    { value: "step", text: "Step" },
+    { value: "stepBefore", text: "Step before" },
+    { value: "stepAfter", text: "Step after" },
+    { value: "basis", text: "Basis" },
+    { value: "basisClosed", text: "Basis closed" },
+    { value: "basisOpen", text: "Basis open" },
+  ];
+
   let defaultBar = {
     dataKey: "",
     fill: "#8884d8",
+    unit: "",
+    name: "",
+    stackId: "",
+    hide: false,
+  };
+
+  let defaultLine = {
+    dataKey: "",
+    lineType: "linear",
+    stroke: "#7bed55",
+    dot: true,
+    activeDot: true,
+    label: false,
+    strokeWidth: 1,
+    connectNulls: false,
+    unit: "",
+    name: "",
+    hide: false,
+  };
+
+  let defaultArea = {
+    dataKey: "",
+    lineType: "natural",
+    stroke: "",
+    dot: false,
+    activeDot: false,
+    label: false,
+    connectNulls: false,
     unit: "",
     name: "",
     stackId: "",
@@ -540,12 +583,12 @@ const BarGraphSettingsForm = ({
                         onChange={handleChange}
                       />
                       <Checkbox
-                      labelText="Hide"
-                      name={`bars[${index}].hide`}
-                      noError
-                      value={values.bars[index].hide}
-                      onChange={handleChange}
-                    />
+                        labelText="Hide"
+                        name={`bars[${index}].hide`}
+                        noError
+                        value={values.bars[index].hide}
+                        onChange={handleChange}
+                      />
 
                       <Button
                         text="-"
@@ -564,16 +607,270 @@ const BarGraphSettingsForm = ({
                 </fieldset>
               )}
             />
-            <div style={{display: "flex", justifyContent: "center"}}><Button
-              text="Close"
-              onClick={(e) => {
-                e.preventDefault();
-                handleCloseSettings();
-              }}
-              outline
+
+            {/* Lines */}
+            <FieldArray
+              name="lines"
+              render={(arrayHelpers) => (
+                <fieldset style={barsFieldsetStyle}>
+                  <legend>Lines</legend>
+                  {values.lines.map((line, index) => (
+                    <div key={index} style={barFieldStyle}>
+                      {/* Data Key */}
+                      <Select
+                        labelText="Data key: "
+                        options={columns}
+                        textKey="text"
+                        valueKey="value"
+                        placeholder="None selected"
+                        outline
+                        noError
+                        name={`lines[${index}].dataKey`}
+                        onChange={handleChange}
+                        value={values.lines[index].dataKey}
+                      />
+                      {/* Line Type */}
+                      <Select
+                        labelText="Line type: "
+                        options={lineTypes}
+                        textKey="text"
+                        valueKey="value"
+                        placeholder="None selected"
+                        outline
+                        noError
+                        name={`lines[${index}].lineType`}
+                        onChange={handleChange}
+                        value={values.lines[index].lineType}
+                      />
+                      {/* Stroke Color */}
+                      <Input
+                        labelText="Stroke color: "
+                        noError
+                        name={`lines[${index}].stroke`}
+                        type="color"
+                        value={values.lines[index].stroke}
+                        onChange={handleChange}
+                      />
+                      {/* Show dots */}
+                      <Checkbox
+                        labelText="Dots"
+                        name={`lines[${index}].dot`}
+                        noError
+                        value={values.lines[index].dot}
+                        onChange={handleChange}
+                      />
+                      {/* Show active dots */}
+                      <Checkbox
+                        labelText="Active dots"
+                        name={`lines[${index}].activeDot`}
+                        noError
+                        value={values.lines[index].activeDot}
+                        onChange={handleChange}
+                      />
+                      {/* Show labels */}
+                      <Checkbox
+                        labelText="Show labels"
+                        name={`lines[${index}].label`}
+                        noError
+                        value={values.lines[index].label}
+                        onChange={handleChange}
+                      />
+                      {/* Stroke width */}
+                      <Input
+                        labelText="Stroke width: "
+                        noError
+                        outlined
+                        name={`lines[${index}].strokeWidth`}
+                        type="number"
+                        value={values.lines[index].strokeWidth}
+                        onChange={handleChange}
+                        min={1}
+                        max={20}
+                      />
+                      {/* Connect nulls */}
+                      <Checkbox
+                        labelText="Connect nulls"
+                        name={`lines[${index}].connectNulls`}
+                        noError
+                        value={values.lines[index].connectNulls}
+                        onChange={handleChange}
+                      />
+                      {/* Unit */}
+                      <Input
+                        labelText="Unit: "
+                        noError
+                        outlined
+                        name={`lines[${index}].unit`}
+                        type="text"
+                        value={values.lines[index].unit}
+                        onChange={handleChange}
+                      />
+                      {/* Name */}
+                      <Input
+                        labelText="Name: "
+                        noError
+                        outlined
+                        name={`lines[${index}].name`}
+                        type="text"
+                        value={values.lines[index].name}
+                        onChange={handleChange}
+                      />
+                      {/* Hide */}
+                      <Checkbox
+                        labelText="Hide"
+                        name={`lines[${index}].hide`}
+                        noError
+                        value={values.lines[index].hide}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  ))}
+                  <Button
+                    text="+"
+                    outline
+                    type="button"
+                    onClick={() => arrayHelpers.push(defaultLine)}
+                  />
+                </fieldset>
+              )}
             />
-            <Button text="Save" classes={["ml10"]} type="submit" /></div>
-            
+
+            {/* Areas */}
+            <FieldArray
+              name="areas"
+              render={(arrayHelpers) => (
+                <fieldset style={barsFieldsetStyle}>
+                  <legend>Areas</legend>
+                  {values.areas.map((area, index) => (
+                    <div key={index} style={barFieldStyle}>
+                      {/* Data Key */}
+                      <Select
+                        labelText="Data key: "
+                        options={columns}
+                        textKey="text"
+                        valueKey="value"
+                        placeholder="None selected"
+                        outline
+                        noError
+                        name={`areas[${index}].dataKey`}
+                        onChange={handleChange}
+                        value={values.areas[index].dataKey}
+                      />
+                      {/* Line Type */}
+                      <Select
+                        labelText="Line type: "
+                        options={lineTypes}
+                        textKey="text"
+                        valueKey="value"
+                        placeholder="None selected"
+                        outline
+                        noError
+                        name={`areas[${index}].lineType`}
+                        onChange={handleChange}
+                        value={values.areas[index].lineType}
+                      />
+                      {/* Stroke Color */}
+                      <Input
+                        labelText="Stroke color: "
+                        noError
+                        name={`areas[${index}].stroke`}
+                        type="color"
+                        value={values.areas[index].stroke}
+                        onChange={handleChange}
+                      />
+                      {/* Show dots */}
+                      <Checkbox
+                        labelText="Dots"
+                        name={`areas[${index}].dot`}
+                        noError
+                        value={values.areas[index].dot}
+                        onChange={handleChange}
+                      />
+                      {/* Show active dots */}
+                      <Checkbox
+                        labelText="Active dots"
+                        name={`areas[${index}].activeDot`}
+                        noError
+                        value={values.areas[index].activeDot}
+                        onChange={handleChange}
+                      />
+                      {/* Show labels */}
+                      <Checkbox
+                        labelText="Show labels"
+                        name={`areas[${index}].label`}
+                        noError
+                        value={values.areas[index].label}
+                        onChange={handleChange}
+                      />
+                      {/* Connect nulls */}
+                      <Checkbox
+                        labelText="Connect nulls"
+                        name={`areas[${index}].connectNulls`}
+                        noError
+                        value={values.areas[index].connectNulls}
+                        onChange={handleChange}
+                      />
+                      {/* Unit */}
+                      <Input
+                        labelText="Unit: "
+                        noError
+                        outlined
+                        name={`areas[${index}].unit`}
+                        type="text"
+                        value={values.areas[index].unit}
+                        onChange={handleChange}
+                      />
+                      {/* Name */}
+                      <Input
+                        labelText="Name: "
+                        noError
+                        outlined
+                        name={`areas[${index}].name`}
+                        type="text"
+                        value={values.areas[index].name}
+                        onChange={handleChange}
+                      />
+                      {/* Stack id */}
+                      <Input
+                        labelText="Stack Id: "
+                        noError
+                        outlined
+                        name={`areas[${index}].stackId`}
+                        type="text"
+                        value={values.areas[index].stackId}
+                        onChange={handleChange}
+                      />
+                      {/* Hide */}
+                      <Checkbox
+                        labelText="Hide"
+                        name={`areas[${index}].hide`}
+                        noError
+                        value={values.areas[index].hide}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  ))}
+                  <Button
+                    text="+"
+                    outline
+                    type="button"
+                    onClick={() => arrayHelpers.push(defaultArea)}
+                  />
+                </fieldset>
+              )}
+            />
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                text="Close"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCloseSettings();
+                }}
+                outline
+              />
+              <Button text="Save" classes={["ml10"]} type="submit" />
+            </div>
           </Form>
         )}
       </Formik>
@@ -581,4 +878,4 @@ const BarGraphSettingsForm = ({
   );
 };
 
-export default BarGraphSettingsForm;
+export default ComposedGraphSettingsForm;
