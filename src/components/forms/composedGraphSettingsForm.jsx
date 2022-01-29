@@ -723,6 +723,13 @@ const ComposedGraphSettingsForm = ({
                         value={values.lines[index].hide}
                         onChange={handleChange}
                       />
+
+                      <Button
+                        text="-"
+                        outline
+                        type="button"
+                        onClick={() => arrayHelpers.remove(index)}
+                      />
                     </div>
                   ))}
                   <Button
@@ -847,6 +854,13 @@ const ComposedGraphSettingsForm = ({
                         noError
                         value={values.areas[index].hide}
                         onChange={handleChange}
+                      />
+
+                      <Button
+                        text="-"
+                        outline
+                        type="button"
+                        onClick={() => arrayHelpers.remove(index)}
                       />
                     </div>
                   ))}

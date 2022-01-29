@@ -2,6 +2,7 @@
   --blue: #1138f7;
   --success: #07bc0c;
   --warning: #f1c40f;
+  --danger: #e81600;
   --dark-blue: #2440C9;
   --grey: #7f7f7f;
 }
@@ -62,6 +63,10 @@ hr {
   color: var(--warning);
 }
 
+.c-danger {
+  color: var(--danger);
+}
+
 .c-def {
   color: var(--blue)
 }
@@ -72,4 +77,8 @@ hr {
 
 .mb10 {
   margin-bottom: 10px;
+}
+
+.mt10 {
+  margin-top: 10px;
 }

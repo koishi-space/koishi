@@ -65,14 +65,43 @@ export async function getCollectionSettings(collectionId) {
   return http.get(`${apiEndpoint}/${collectionId}/settings`);
 }
 
+// create new, empty collection settings preset
+export async function newCollectionSettings(collectionId) {
+  return http.post(`${apiEndpoint}/${collectionId}/settings/new`);
+}
+
 // save collection settings
-export async function saveCollectionSettings(collectionId, settings) {
-  return http.put(`${apiEndpoint}/${collectionId}/settings`, settings);
+export async function saveCollectionSettings(
+  collectionId,
+  settingsId,
+  settings
+) {
+  return http.put(
+    `${apiEndpoint}/${collectionId}/settings/${settingsId}`,
+    settings
+  );
+}
+
+// rename collection settings
+export async function renameCollectionSettings(
+  collectionId,
+  settingsId,
+  newName
+) {
+  return http.patch(
+    `${apiEndpoint}/${collectionId}/settings/${settingsId}/rename`,
+    { name: newName }
+  );
 }
 
 // reset collection settings
 export async function resetCollectionSettings(collectionId) {
   return http.put(`${apiEndpoint}/${collectionId}/settings/reset`);
+}
+
+// delete collection settings preset
+export async function deleteCollectionSettings(collectionId, settingsId) {
+  return http.delete(`${apiEndpoint}/${collectionId}/settings/${settingsId}`);
 }
 
 export default {
@@ -89,4 +118,7 @@ export default {
   getCollectionSettings,
   saveCollectionSettings,
   resetCollectionSettings,
+  newCollectionSettings,
+  renameCollectionSettings,
+  deleteCollectionSettings,
 };

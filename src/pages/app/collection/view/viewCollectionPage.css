@@ -1,10 +1,10 @@
 .collection-view {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
-    overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  overflow-y: hidden;
 }
 
 .collection-view-div {
@@ -20,7 +20,7 @@
   overflow-y: scroll;
   margin-bottom: 40px;
 }
-.collection-view-div > div > div:first-child {
+.collection-view-div div.graph-selection {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -37,11 +37,11 @@
   width: 100%;
 }
 
-.collection-view-div > div > div:first-child svg{
+.collection-view-div div.graph-selection svg {
   margin-left: 20px;
 }
 
-.collection-view-div > div > div:first-child svg:hover {
+.collection-view-div div.graph-selection svg:hover {
   cursor: pointer;
 }
 
