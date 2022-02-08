@@ -328,8 +328,8 @@ class ViewCollectionPage extends React.Component {
                                 allowDecimals={
                                   settings.composedGraph.xAxis.allowDecimals
                                 }
-                                label={settings.composedGraph.xAxis.label}
-                                unit={settings.composedGraph.xAxis.unit}
+                                // label={settings.composedGraph.xAxis.label}
+                                // unit={settings.composedGraph.xAxis.unit}
                                 scale={settings.composedGraph.xAxis.scale}
                                 domain={
                                   settings.composedGraph.xAxis.type === "number"
@@ -358,8 +358,8 @@ class ViewCollectionPage extends React.Component {
                                 allowDecimals={
                                   settings.composedGraph.yAxis.allowDecimals
                                 }
-                                label={settings.composedGraph.yAxis.label}
-                                unit={settings.composedGraph.yAxis.unit}
+                                // label={settings.composedGraph.yAxis.label}
+                                // unit={settings.composedGraph.yAxis.unit}
                                 scale={settings.composedGraph.yAxis.scale}
                                 domain={
                                   settings.composedGraph.yAxis.type === "number"
@@ -439,7 +439,7 @@ class ViewCollectionPage extends React.Component {
                             </ComposedChart>
                           </ResponsiveContainer>
                         ) : (
-                          <p>Bar chart settings is not complete.</p>
+                          <p>Graph settings is incomplete.</p>
                         )}
                       </React.Fragment>
                     )}

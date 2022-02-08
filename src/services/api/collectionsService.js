@@ -55,6 +55,11 @@ export async function addRowToCollection(collectionId, newRow) {
 }
 
 // delete row on a certain index
+export async function editRow(collectionId, rowIndex, payload) {
+  return http.put(`${apiEndpoint}/${collectionId}/data/${rowIndex}`, payload);
+}
+
+// delete row on a certain index
 export async function deleteRow(collectionId, rowIndex) {
   return http.delete(`${apiEndpoint}/${collectionId}/data/${rowIndex}`);
 }
@@ -114,6 +119,7 @@ export default {
   getCollectionModel,
   getCollectionData,
   addRowToCollection,
+  editRow,
   deleteRow,
   getCollectionSettings,
   saveCollectionSettings,

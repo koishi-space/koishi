@@ -297,7 +297,7 @@ const ComposedGraphSettingsForm = ({
                   </div>
                 </div>
                 {/* Axis Label */}
-                <div style={formFieldStyle}>
+                {/* <div style={formFieldStyle}>
                   <Input
                     labelText="Axis label: "
                     noError
@@ -307,9 +307,9 @@ const ComposedGraphSettingsForm = ({
                     value={values.xAxis.label}
                     onChange={handleChange}
                   />
-                </div>
+                </div> */}
                 {/* Axis unit */}
-                <div style={formFieldStyle}>
+                {/* <div style={formFieldStyle}>
                   <Input
                     labelText="Axis unit: "
                     noError
@@ -319,7 +319,7 @@ const ComposedGraphSettingsForm = ({
                     value={values.xAxis.unit}
                     onChange={handleChange}
                   />
-                </div>
+                </div> */}
                 {/* Axis Scale */}
                 <div style={formFieldStyle}>
                   <Select
@@ -486,7 +486,7 @@ const ComposedGraphSettingsForm = ({
                   </div>
                 </div>
                 {/* Axis Label */}
-                <div style={formFieldStyle}>
+                {/* <div style={formFieldStyle}>
                   <Input
                     labelText="Axis label: "
                     noError
@@ -496,9 +496,9 @@ const ComposedGraphSettingsForm = ({
                     value={values.yAxis.label}
                     onChange={handleChange}
                   />
-                </div>
+                </div> */}
                 {/* Axis unit */}
-                <div style={formFieldStyle}>
+                {/* <div style={formFieldStyle}>
                   <Input
                     labelText="Axis unit: "
                     noError
@@ -508,7 +508,7 @@ const ComposedGraphSettingsForm = ({
                     value={values.yAxis.unit}
                     onChange={handleChange}
                   />
-                </div>
+                </div> */}
                 {/* Axis Scale */}
                 <div style={formFieldStyle}>
                   <Select

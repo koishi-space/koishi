@@ -29,6 +29,15 @@
   cursor: pointer;
 }
 
+.edit-collection-edit-icon {
+  color: var(--blue);
+  font-size: small;
+}
+
+.edit-collection-edit-icon:hover {
+  cursor: pointer;
+}
+
 table {
   margin: 40px auto 20px auto;
   border-collapse: collapse;
