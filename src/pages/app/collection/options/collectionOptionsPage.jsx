@@ -228,13 +228,13 @@ class CollectionOptionsPage extends React.Component {
             <div className="collection-options-content-div">
               <h2>Export</h2>
               <div>
-                <Button style={{ margin: "10px" }} text="Excel" />
+                {/* <Button style={{ margin: "10px" }} text="Excel" /> */}
                 <Button
                   style={{ margin: "10px" }}
                   onClick={() => this.handleExportCollection("json")}
                   text="JSON {}"
                 />
-                <Button style={{ margin: "10px" }} text="XML </>" />
+                {/* <Button style={{ margin: "10px" }} text="XML </>" /> */}
               </div>
             </div>
           </React.Fragment>

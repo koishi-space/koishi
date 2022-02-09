@@ -24,7 +24,7 @@ const HomePage = () => {
           {auth.getCurrentUser() ? 
           <Link to="/app/dashboard" style={{width: "max-content"}}><Button text="App"/></Link>
           :
-          <Link to="/get-started" style={{width: "max-content"}}><Button text="Get started"/></Link>
+          <Link to="/login" style={{width: "max-content"}}><Button text="Get started"/></Link>
           }
       </div>
       <div className="spot-right">
