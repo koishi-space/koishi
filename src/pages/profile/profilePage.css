@@ -1,0 +1,25 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.profile-page-content-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  text-align: left;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.profile-page-share-button:hover {
+    cursor: pointer;
+}

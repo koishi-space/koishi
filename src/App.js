@@ -13,6 +13,7 @@ import NotFoundPage from "./pages/default/notFoundPage";
 import ForbiddenPage from "./pages/default/forbiddenPage";
 import LogoutRoute from "./routes/logoutRoute";
 import RegisterPage from "./pages/register/registerPage";
+import ProfilePage from "./pages/profile/profilePage";
 
 class App extends Component {
   state = {
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path="/logout" component={LogoutRoute} />
             <Route path="/register" component={RegisterPage} />
             <Route path="/verify" component={VerifyPage} />
+            <Route path="/profile" component={ProfilePage} />
 
             {/* Sink routes */}
             <Route path="/forbidden" component={ForbiddenPage} />

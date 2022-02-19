@@ -7,6 +7,8 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ReactModal from "react-modal";
+import * as _ from "lodash";
 import {
   getCollectionNoPopulate,
   deleteCollection,
@@ -16,12 +18,17 @@ import {
   renameCollectionSettings,
   deleteCollectionSettings,
 } from "../../../../services/api/collectionsService";
-import { exportCollectionAsJSON } from "../../../../services/api/toolsService";
+import {
+  exportCollectionAsJSON,
+  shareCollection,
+  removeCollectionShare,
+} from "../../../../services/api/toolsService";
 import ConfirmDialog from "../../../../components/common/confirmDialog/confirmDialog";
 import "./collectionOptionsPage.css";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
 import download from "downloadjs";
+import Checkbox from "../../../../components/common/checkbox/checkbox";
 
 // TODO: implement ViewCollectionPage
 class CollectionOptionsPage extends React.Component {
@@ -31,6 +38,10 @@ class CollectionOptionsPage extends React.Component {
     redirect: undefined,
     titleEditActive: false,
     editFieldsValues: {},
+    shareModalIsOpen: false,
+    shareInputEmail: "",
+    shareInputAllowEditing: false,
+    shareModalLoading: false,
   };
 
   componentDidMount() {
@@ -82,7 +93,6 @@ class CollectionOptionsPage extends React.Component {
       let collection = this.state.collection;
       for (let s in collection.settings)
         if (collection.settings[s]._id === presetId.toString()) {
-          console.log("match")
           collection.settings.splice(s, 1);
           break;
         }
@@ -91,10 +101,60 @@ class CollectionOptionsPage extends React.Component {
     });
   };
 
+  handleCloseShareModal = () => {
+    this.setState({ shareModalIsOpen: false });
+  };
+
+  handleOpenShareModal = () => {
+    this.setState({ shareModalIsOpen: true });
+  };
+
+  handleShareCollection = () => {
+    // Share the collection
+    this.setState({ shareModalLoading: true });
+    shareCollection(
+      this.props.match.params.id,
+      this.state.shareInputEmail,
+      this.state.shareInputAllowEditing
+    )
+      .then((d) => {
+        let coll = this.state.collection;
+        coll.sharedTo.push({
+          userEmail: this.state.shareInputEmail,
+          role: this.state.shareInputAllowEditing ? "edit" : "view",
+        });
+        toast.info("Collection shared with " + this.state.shareInputEmail);
+        this.setState({
+          shareModalLoading: false,
+          shareInputEmail: "",
+          shareInputAllowEditing: false,
+          collection: coll,
+        });
+      })
+      .finally(() => this.handleCloseShareModal());
+  };
+
+  handleStopSharing = (userEmail) => {
+    this.setState({ loading: true });
+    removeCollectionShare(this.props.match.params.id, userEmail)
+      .then((d) => {
+        let coll = this.state.collection;
+        _.remove(coll.sharedTo, (n) => n.userEmail === userEmail);
+        this.setState({ collection: coll, loading: false });
+        toast.warning(`Stopped sharing with ${userEmail}`);
+      })
+      .catch((e) => {
+        toast.error(`Oops, something went wrong..`);
+      })
+      .finally(() => {
+        this.setState({ loading: false });
+      });
+  };
+
   render() {
     const { collection, titleEditActive } = this.state;
     return (
-      <div className="view collection-options">
+      <div className="view-small-border collection-options">
         <WorkspaceNav collectionId={this.props.match.params.id} />
         {this.state.loading ? (
           <Spinner />
@@ -109,12 +169,14 @@ class CollectionOptionsPage extends React.Component {
                   </p>
                   <EditOutlinedIcon
                     className="collection-options-edit-button c-def"
-                    onClick={() =>
+                    onClick={() => {
+                      let edits = this.state.editFieldsValues;
+                      edits.title = collection.title;
                       this.setState({
                         titleEditActive: true,
-                        editFieldsValues: { title: collection.title },
-                      })
-                    }
+                        editFieldsValues: edits,
+                      });
+                    }}
                   />
                 </div>
               ) : (
@@ -138,10 +200,9 @@ class CollectionOptionsPage extends React.Component {
                   <CheckOutlinedIcon
                     className="collection-options-edit-button c-success"
                     onClick={() => {
-                      editCollection(
-                        collection._id,
-                        this.state.editFieldsValues
-                      ).then(() => {
+                      editCollection(collection._id, {
+                        title: this.state.editFieldsValues.title,
+                      }).then(() => {
                         toast.success("Collection updated.");
                         this.setState({
                           titleEditActive: false,
@@ -157,6 +218,9 @@ class CollectionOptionsPage extends React.Component {
                   />
                 </div>
               )}
+              <p>
+                <b>Owner:</b> {collection.ownerString}
+              </p>
               <div>
                 <Button
                   text="Delete collection"
@@ -186,8 +250,9 @@ class CollectionOptionsPage extends React.Component {
                       this.setState({ editFieldsValues: edits });
                     }}
                   />
-                  {this.state.collection.settings.find((x) => x._id === s._id)
-                    .name !== this.state.editFieldsValues[s._id] && (
+                  {this.state.collection.settings.find(
+                    (x) => x._id.toString() === s._id.toString()
+                  ).name !== this.state.editFieldsValues[s._id] && (
                     <CheckOutlinedIcon
                       className="collection-options-edit-button c-success"
                       onClick={() => {
@@ -237,8 +302,105 @@ class CollectionOptionsPage extends React.Component {
                 {/* <Button style={{ margin: "10px" }} text="XML </>" /> */}
               </div>
             </div>
+            <div className="collection-options-content-div">
+              <h2>Sharing</h2>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {this.state.collection.sharedTo.map((s) => (
+                  <div style={{ display: "flex", flexDirection: "row" }}>
+                    <p className="mr10">
+                      <b>{s.userEmail}</b>
+                    </p>
+                    (
+                    <Checkbox
+                      labelText="Allow editing"
+                      name={() => Math.floor(Math.random() * 1000).toString()}
+                      noError
+                      value={s.role === "edit"}
+                      onChange={(e) => {
+                        shareCollection(
+                          this.props.match.params.id,
+                          s.userEmail,
+                          e.target.checked
+                        ).then((d) => {
+                          let coll = this.state.collection;
+                          for (let c of coll.sharedTo) {
+                            if (c.userEmail === s.userEmail) {
+                              c.role = e.target.checked ? "view" : "edit";
+                              break;
+                            }
+                          }
+                          toast.info("Privileges edited for " + s.userEmail);
+                          this.setState({
+                            collection: coll,
+                          });
+                        });
+                      }}
+                    />
+                    )
+                    <DeleteIcon
+                      className="collection-options-edit-button c-danger"
+                      onClick={() =>
+                        ConfirmDialog({
+                          title: "Stop sharing",
+                          message: `Are you sure you want to stop sharing with ${s.userEmail}?`,
+                          labelConfirm: "Stop sharing",
+                          labelDismiss: "Cancel",
+                          onConfirm: () => this.handleStopSharing(s.userEmail),
+                        })
+                      }
+                    />
+                  </div>
+                ))}
+                <Button
+                  style={{ margin: "10px" }}
+                  onClick={() => this.handleOpenShareModal()}
+                  text="+"
+                />
+              </div>
+            </div>
           </React.Fragment>
         )}
+        {/* Add share modal */}
+        <ReactModal
+          isOpen={this.state.shareModalIsOpen}
+          className="collection-options-page-modal"
+          overlayClassName="collection-options-page-modal-overlay"
+          onRequestClose={this.handleCloseShareModal}
+          shouldCloseOnOverlayClick={true}
+        >
+          <h1>New share</h1>
+          {this.state.shareModalLoading ? (
+            <Spinner />
+          ) : (
+            <React.Fragment>
+              <Input
+                name="add_share_input_email"
+                placeholder="Email"
+                type="email"
+                value={this.state.shareInputEmail}
+                onChange={(e) =>
+                  this.setState({ shareInputEmail: e.target.value })
+                }
+              />
+              <Checkbox
+                labelText="Allow editing"
+                name="add_share_input_allow_editing"
+                noError
+                value={this.state.shareInputAllowEditing}
+                onChange={(e) => {
+                  this.setState({ shareInputAllowEditing: e.target.checked });
+                }}
+              />
+              <div className="mt20">
+                <Button
+                  text="Share"
+                  style={{ margin: "0 4px" }}
+                  onClick={this.handleShareCollection}
+                />
+              </div>
+            </React.Fragment>
+          )}
+        </ReactModal>
         {this.state.redirect && <Redirect to={this.state.redirect} />}
       </div>
     );

@@ -10,6 +10,10 @@ export async function verifyUser(token) {
   return http.post(apiEndpoint + "/verify", {"verificationCode": token});
 }
 
+export async function getMyProfile() {
+  return http.get(apiEndpoint + "/me");
+}
+
 export default {
   registerUser,
   verifyUser,

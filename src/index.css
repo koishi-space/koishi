@@ -16,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {
@@ -75,10 +76,18 @@ hr {
   margin-left: 10px;
 }
 
+.mr10 {
+  margin-right: 10px;
+}
+
 .mb10 {
   margin-bottom: 10px;
 }
 
 .mt10 {
   margin-top: 10px;
+}
+
+.mt20 {
+  margin-top: 20px;
 }

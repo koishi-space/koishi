@@ -212,7 +212,6 @@ class ViewCollectionPage extends React.Component {
 
     const { error } = schema.validate(settingsPayload);
     if (error) console.log(error.details[0].message);
-    console.log("validated");
     return error ? false : true;
   }
 
