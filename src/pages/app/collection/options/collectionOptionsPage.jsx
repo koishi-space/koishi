@@ -8,7 +8,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactModal from "react-modal";
-import * as _ from "lodash";
+import _ from "lodash";
 import {
   getCollectionNoPopulate,
   deleteCollection,
@@ -22,8 +22,9 @@ import {
   exportCollectionAsJSON,
   shareCollection,
   removeCollectionShare,
+  changeCollectionVisibility,
 } from "../../../../services/api/toolsService";
-import ConfirmDialog from "../../../../components/common/confirmDialog/confirmDialog";
+import ConfirmDialog from "../../../../components/confirmDialog/confirmDialog";
 import "./collectionOptionsPage.css";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
@@ -151,6 +152,21 @@ class CollectionOptionsPage extends React.Component {
       });
   };
 
+  handleChangeCollectionVisibility = async (visibility) => {
+    this.setState({ loading: true });
+    try {
+      await changeCollectionVisibility(this.props.match.params.id, visibility);
+      toast.success(`The collection is now ${visibility}`);
+      let collection = this.state.collection;
+      collection.isPublic = visibility === "public";
+      this.setState({ collection });
+    } catch (ex) {
+      toast.error("Oops, something went wrong...");
+    } finally {
+      this.setState({ loading: false });
+    }
+  };
+
   render() {
     const { collection, titleEditActive } = this.state;
     return (
@@ -218,9 +234,35 @@ class CollectionOptionsPage extends React.Component {
                   />
                 </div>
               )}
+              <p style={{"margin": "0px 10px"}}>
+                <b>Id:</b> {collection._id}
+              </p>
               <p>
                 <b>Owner:</b> {collection.ownerString}
               </p>
+              <div className="mb20">
+                <Checkbox
+                  labelText="Open to public"
+                  name={() => Math.floor(Math.random() * 1000).toString()}
+                  noError
+                  value={collection.isPublic}
+                  onChange={async (e) => {
+                    let newVisibility = e.target.checked ? "public" : "private";
+                    // Change collection visibility
+                    ConfirmDialog({
+                      title: "Change collection visibility",
+                      message: `Are you sure you want to make the collection ${newVisibility}?\nAnyone can view a public collection.`,
+                      labelConfirm: `Make ${newVisibility}`,
+                      labelDismiss: "Cancel",
+                      onConfirm: async () =>
+                        this.handleChangeCollectionVisibility(newVisibility),
+                    });
+                  }}
+                />
+              </div>
+              {this.state.collection.isPublic && <p style={{"margin": "0px", "marginBottom": "20px"}}>
+                <b>Public link: </b><a target="_blank" href={`${window.location.origin}/public-collections/${collection._id}`}>{`${window.location.origin}/public-collections/${collection._id}`}</a>
+              </p>}
               <div>
                 <Button
                   text="Delete collection"

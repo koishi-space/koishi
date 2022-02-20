@@ -40,6 +40,15 @@ export async function removeAllCollectionShares(collectionId) {
   return http.put(`${apiEndpoint}/share/remove/${collectionId}/all`);
 }
 
+export async function changeCollectionVisibility(collectionId, visibility) {
+  if (visibility !== "private" && visibility !== "public")
+    throw new Error(
+      'Collection visibility can either be "public" or "private".'
+    );
+  else
+    return http.put(`${apiEndpoint}/visibility/${visibility}/${collectionId}`);
+}
+
 export default {
   exportCollectionAsJSON,
   shareCollection,
@@ -47,4 +56,5 @@ export default {
   acceptCollectionShare,
   removeCollectionShare,
   removeAllCollectionShares,
+  changeCollectionVisibility,
 };

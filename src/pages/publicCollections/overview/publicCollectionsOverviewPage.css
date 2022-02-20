@@ -1,0 +1,30 @@
+.public-collections-overview {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.public-collections-overview-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.public-collections-overview-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}

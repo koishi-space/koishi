@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 import auth from "./services/authService";
 import AuthRoute from "./routes/authRoute";
-import PublicNavbar from "./components/common/publicNavbar/publicNavbar";
+import PublicNavbar from "./components/publicNavbar/publicNavbar";
 import HomePage from "./pages/home/homePage";
 import LoginPage from "./pages/login/loginPage";
 import VerifyPage from "./pages/verify/verifyPage";
@@ -14,6 +14,8 @@ import ForbiddenPage from "./pages/default/forbiddenPage";
 import LogoutRoute from "./routes/logoutRoute";
 import RegisterPage from "./pages/register/registerPage";
 import ProfilePage from "./pages/profile/profilePage";
+import PublicCollectionsOverviewPage from "./pages/publicCollections/overview/publicCollectionsOverviewPage";
+import ViewPublicCollectionPage from "./pages/publicCollections/view/viewPublicCollectionPage";
 
 class App extends Component {
   state = {
@@ -37,6 +39,8 @@ class App extends Component {
           <Switch>
             {/* Main routes */}
             <Route path="/" exact component={HomePage} />
+            <Route path="/public-collections" exact component={PublicCollectionsOverviewPage} />
+            <Route path="/public-collections/:id" component={ViewPublicCollectionPage} />
             <AuthRoute path="/app" component={AppRouter} />
 
             {/* Account control routes */}

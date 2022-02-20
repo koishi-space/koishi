@@ -8,6 +8,14 @@ export async function getCollections() {
   return http.get(apiEndpoint);
 }
 
+export async function getPublicCollections(fetchOwners = true) {
+  return http.get(`${apiEndpoint}/public?fetchOwners=${fetchOwners}`);
+}
+
+export async function getPublicCollection(collectionId) {
+  return http.get(`${apiEndpoint}/public/${collectionId}`);
+}
+
 // get one exact collection with all fields populated
 export async function getCollection(collectionId) {
   return http.get(`${apiEndpoint}/${collectionId}`);
@@ -111,6 +119,8 @@ export async function deleteCollectionSettings(collectionId, settingsId) {
 
 export default {
   getCollections,
+  getPublicCollections,
+  getPublicCollection,
   getCollection,
   getCollectionNoPopulate,
   createCollection,

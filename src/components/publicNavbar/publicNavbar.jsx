@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./publicNavbar.css";
-import auth from "../../../services/authService";
+import auth from "../../services/authService";
 
 const PublicNavbar = ({ user }) => {
   return (
@@ -25,6 +25,12 @@ const PublicNavbar = ({ user }) => {
             Get started
           </Link>
         )}
+        <NavLink
+          className={(a) => (a ? "nav-link-active mg" : "nav-link mg")}
+          to="/public-collections"
+        >
+          Public collections
+        </NavLink>
         <a
           className="nav-link mg"
           target="_blank"
