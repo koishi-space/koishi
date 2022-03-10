@@ -29,7 +29,7 @@ const PublicNavbar = ({ user }) => {
           className={(a) => (a ? "nav-link-active mg" : "nav-link mg")}
           to="/public-collections"
         >
-          Public collections
+          Open collections
         </NavLink>
         <a
           className="nav-link mg"
