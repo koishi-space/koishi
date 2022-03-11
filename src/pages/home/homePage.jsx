@@ -68,9 +68,9 @@ const HomePage = () => {
               className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href=""
+              href="https://www.patreon.com/janhendrych"
             >
-              Become a Patreon
+              Become a Patron
             </a>
           </div>
         </div>
