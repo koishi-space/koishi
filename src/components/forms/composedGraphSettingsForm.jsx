@@ -141,7 +141,7 @@ const ComposedGraphSettingsForm = ({
           formData.yAxis.range.toCustom =
             formData.yAxis.range.toCustom.toString();
 
-          handleSaveSettings(formData);
+          handleSaveSettings(formData, "composedGraph");
         }}
       >
         {({ values, handleChange }) => (
@@ -244,7 +244,7 @@ const ComposedGraphSettingsForm = ({
                                 (x) => x.value === values.xAxis.dataKey
                               )[0].type
                             }
-                            value={values.xAxis.range.fromValue}
+                            value={values.xAxis.range.fromCustom}
                             onChange={handleChange}
                           />
                         ) : (

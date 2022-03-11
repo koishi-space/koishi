@@ -28,11 +28,11 @@ const HomePage = () => {
             potential of your data with Koishi.
           </p>
           {auth.getCurrentUser() ? (
-            <Link to="/app/dashboard" style={{ width: "max-content" }}>
+            <Link to="/app/dashboard" style={{ width: "max-content", textDecoration: "none" }}>
               <Button text="App" />
             </Link>
           ) : (
-            <Link to="/login" style={{ width: "max-content" }}>
+            <Link to="/login" style={{ width: "max-content", textDecoration: "none" }}>
               <Button text="Get started" />
             </Link>
           )}
@@ -57,7 +57,7 @@ const HomePage = () => {
           </p>
           <div className="homepage-card-buttons">
             <a
-              className="nav-link mg"
+              className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
               href="https://github.com/hendrychjan/koishi"
@@ -65,12 +65,12 @@ const HomePage = () => {
               Github repository
             </a>
             <a
-              className="nav-link mg"
+              className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href="#"
+              href=""
             >
-              Donate on Patreon
+              Become a Patreon
             </a>
           </div>
         </div>
@@ -82,7 +82,7 @@ const HomePage = () => {
           </p>
           <div className="homepage-card-buttons">
             <a
-              className="nav-link mg"
+              className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
               href="#"
@@ -98,27 +98,23 @@ const HomePage = () => {
             utilize the REST API to automate the data collection process.
           </p>
           <div className="homepage-card-buttons">
-            <a
-              className="nav-link mg"
-              target="_blank"
-              rel="noreferrer"
-              href="#"
+            <Link to="/app/dashboard"
             >
               App
-            </a>
+            </Link>
             <a
-              className="nav-link mg"
+              className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href="#"
+              href="https://www.notion.so/hendrychjan/Getting-started-with-Koishi-API-0283cd2caf1c4ae4b31440f0a42a3d4a"
             >
               Get started with API
             </a>
             <a
-              className="nav-link mg"
+              className="homepage-card-homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href="#"
+              href="https://github.com/hendrychjan/koishi-mobile#installation"
             >
               Koishi for Android
             </a>
