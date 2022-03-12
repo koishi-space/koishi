@@ -14,11 +14,11 @@ import {
 class RadarGraphComponent extends Component {
   validateRadarChart(settingsPayload) {
     const polarAngleAxisSchema = Joi.object({
-      dataKey: Joi.string().allow("").required(),
+      dataKey: Joi.string().required(),
     });
 
     const radialAngleAxisSchema = Joi.object({
-      dataKey: Joi.string().allow("").required(),
+      dataKey: Joi.string().required(),
       range: Joi.object({
         from: Joi.string()
           .allow("auto", "dataMin", "dataMax", "custom")
@@ -34,11 +34,10 @@ class RadarGraphComponent extends Component {
     const radarSchema = Joi.object({
       _id: Joi.any(),
       __v: Joi.any(),
-      dataKey: Joi.string().allow("").required(),
+      dataKey: Joi.string().required(),
       name: Joi.string().allow("").required(),
       fill: Joi.string()
         .regex(/^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/)
-        .allow("")
         .required(),
       dot: Joi.boolean().required(),
       activeDot: Joi.boolean().required(),

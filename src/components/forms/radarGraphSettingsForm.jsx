@@ -11,7 +11,6 @@ const RadarGraphSettingsForm = ({
   handleSaveSettings,
   handleCloseSettings,
 }) => {
-  console.log(initialSettings);
   let columns = [];
   for (const column of collectionModel.value) {
     columns.push({
@@ -50,7 +49,7 @@ const RadarGraphSettingsForm = ({
     alignItems: "center",
   };
 
-  const barsFieldsetStyle = {
+  const radarsFieldsetStyle = {
     display: "flex",
     flexDirection: "column",
   };
@@ -63,7 +62,7 @@ const RadarGraphSettingsForm = ({
     justifyContent: "center",
   };
 
-  const barFieldStyle = {
+  const radarFieldStyle = {
     display: "flex",
     flexDirection: "row",
     flexWrap: "nowrap",
@@ -217,10 +216,10 @@ const RadarGraphSettingsForm = ({
             <FieldArray
               name="radars"
               render={(arrayHelpers) => (
-                <fieldset style={barsFieldsetStyle}>
+                <fieldset style={radarsFieldsetStyle}>
                   <legend>Radars</legend>
                   {values.radars.map((radar, index) => (
-                    <div key={index} style={barsFieldsetStyle}>
+                    <div key={index} style={radarsFieldsetStyle}>
                       <Select
                         labelText="Data key: "
                         options={columns}

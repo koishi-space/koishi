@@ -42,7 +42,7 @@
   "scripts": {
     "prestart": "npm run build",
     "start": "serve -s build",
-    "devrun": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-script eject"

@@ -10,11 +10,13 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Select from "../../../../components/common/select/select";
 import ComposedGraphSettingsForm from "../../../../components/forms/composedGraphSettingsForm";
 import RadarGraphSettingsForm from "../../../../components/forms/radarGraphSettingsForm";
+import PieGraphSettingsForm from "../../../../components/forms/pieGraphSettingsForm";
 import Spinner from "../../../../components/common/spinner/spinner";
 import Button from "../../../../components/common/button/button";
 import { toast } from "react-toastify";
 import ComposedGraphComponent from "../../../../components/graphs/composedGraphComponent";
 import RadarGraphComponent from "../../../../components/graphs/radarGraphComponent";
+import PieGraphComponent from "../../../../components/graphs/pieGraphComponent";
 
 class ViewCollectionPage extends React.Component {
   state = {
@@ -27,6 +29,7 @@ class ViewCollectionPage extends React.Component {
       { key: "", value: "Select chart variant" },
       { key: "composed", value: "Composed graph" },
       { key: "radar", value: "Radar chart" },
+      { key: "pie", value: "Pie chart" },
     ],
   };
 
@@ -182,6 +185,18 @@ class ViewCollectionPage extends React.Component {
                         collectionData={this.state.collection.data.value}
                       />
                     )}
+                    {/* Pie Graph */}
+                    {this.state.graphVariant === "pie" && (
+                      <PieGraphComponent
+                        settingsPreset={
+                          this.state.collection.settings.find(
+                            (x) => x._id === this.state.selectedSettingsPreset
+                          ).pieGraph
+                        }
+                        collectionData={this.state.collection.data.value}
+                        collectionModel={this.state.collection.model.value}
+                      />
+                    )}
                   </React.Fragment>
                 )}
 
@@ -189,7 +204,7 @@ class ViewCollectionPage extends React.Component {
               {this.state.settingsOpened && (
                 <React.Fragment>
                   {this.state.graphVariant === "composed" && (
-                    // Bar graph settings
+                    // Composed graph settings
                     <React.Fragment>
                       <h1>Graph settings</h1>
                       <ComposedGraphSettingsForm
@@ -205,7 +220,7 @@ class ViewCollectionPage extends React.Component {
                     </React.Fragment>
                   )}
                   {this.state.graphVariant === "radar" && (
-                    // Bar graph settings
+                    // Radar graph settings
                     <React.Fragment>
                       <h1>Graph settings</h1>
                       <RadarGraphSettingsForm
@@ -213,6 +228,22 @@ class ViewCollectionPage extends React.Component {
                           this.state.collection.settings.find(
                             (s) => s._id === this.state.selectedSettingsPreset
                           ).radarGraph
+                        }
+                        collectionModel={this.state.collection.model}
+                        handleSaveSettings={this.handleSaveSettings}
+                        handleCloseSettings={this.handleCloseSettings}
+                      />
+                    </React.Fragment>
+                  )}
+                  {this.state.graphVariant === "pie" && (
+                    // Pie graph settings
+                    <React.Fragment>
+                      <h1>Graph settings</h1>
+                      <PieGraphSettingsForm
+                        initialCollectionSettings={
+                          this.state.collection.settings.find(
+                            (s) => s._id === this.state.selectedSettingsPreset
+                          ).pieGraph
                         }
                         collectionModel={this.state.collection.model}
                         handleSaveSettings={this.handleSaveSettings}
