@@ -11,6 +11,22 @@ export async function exportCollectionAsJSON(collectionId) {
   });
 }
 
+export async function exportCollectionAsXML(collectionId) {
+  return fetch(`${apiEndpoint}/export/${collectionId}/xml`, {
+    headers: new Headers({
+      "x-auth-token": getJwt(),
+    }),
+  });
+}
+
+export async function exportCollectionAsXLSX(collectionId) {
+  return fetch(`${apiEndpoint}/export/${collectionId}/xlsx`, {
+    headers: new Headers({
+      "x-auth-token": getJwt(),
+    }),
+  });
+}
+
 export async function shareCollection(collectionId, userEmail, allowEditing) {
   return http.post(`${apiEndpoint}/share/add/${collectionId}`, {
     userEmail: userEmail,
@@ -51,6 +67,8 @@ export async function changeCollectionVisibility(collectionId, visibility) {
 
 export default {
   exportCollectionAsJSON,
+  exportCollectionAsXML,
+  exportCollectionAsXLSX,
   shareCollection,
   getCollectionShareInvites,
   acceptCollectionShare,

@@ -20,6 +20,8 @@ import {
 } from "../../../../services/api/collectionsService";
 import {
   exportCollectionAsJSON,
+  exportCollectionAsXML,
+  exportCollectionAsXLSX,
   shareCollection,
   removeCollectionShare,
   changeCollectionVisibility,
@@ -84,6 +86,16 @@ class CollectionOptionsPage extends React.Component {
       const res = await exportCollectionAsJSON(this.state.collection._id);
       const blob = await res.blob();
       download(blob, this.state.collection.title.trim() + ".json");
+    }
+    if (exportType === "xml") {
+      const res = await exportCollectionAsXML(this.state.collection._id);
+      const blob = await res.blob();
+      download(blob, this.state.collection.title.trim() + ".xml");
+    }
+    if (exportType === "xlsx") {
+      const res = await exportCollectionAsXLSX(this.state.collection._id);
+      const blob = await res.blob();
+      download(blob, this.state.collection.title.trim() + ".xlsx");
     }
   };
 
@@ -335,13 +347,21 @@ class CollectionOptionsPage extends React.Component {
             <div className="collection-options-content-div">
               <h2>Export</h2>
               <div>
-                {/* <Button style={{ margin: "10px" }} text="Excel" /> */}
                 <Button
                   style={{ margin: "10px" }}
                   onClick={() => this.handleExportCollection("json")}
                   text="JSON {}"
                 />
-                {/* <Button style={{ margin: "10px" }} text="XML </>" /> */}
+                <Button
+                  style={{ margin: "10px" }}
+                  onClick={() => this.handleExportCollection("xml")}
+                  text="XML </>"
+                />
+                <Button
+                  style={{ margin: "10px" }}
+                  onClick={() => this.handleExportCollection("xlsx")}
+                  text="XLSX (Excel)"
+                />
               </div>
             </div>
             <div className="collection-options-content-div">
