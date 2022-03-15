@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import "./createCollectionCard.css";
+import "./createRealtimeCollectionCard.css";
 
 const CreateCollectionCard = () => {
   let [redirect, setRedirect] = useState(false);

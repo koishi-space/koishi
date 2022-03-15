@@ -2,7 +2,6 @@ import { Formik, Form } from "formik";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import * as collectionsService from "../../services/api/collectionsService";
 import Button from "../common/button/button";
 import Input from "../common/input/input";
 import Select from "../common/select/select";
@@ -10,7 +9,7 @@ import Spinner from "../common/spinner/spinner";
 import { Redirect } from "react-router-dom";
 
 // TODO: Implement displaying column validation messages and on-server duplicite title checks
-const CreateCollectionForm = () => {
+const CreateCollectionForm = ({redirectTarget, handleSubmit}) => {
   const getRandomKey = () => Math.floor(Math.random() * 1000000);
 
   const dataTypes = [
@@ -101,11 +100,9 @@ const CreateCollectionForm = () => {
             }
           }
           if (columnsAreValid) {
-            console.log("submitted");
-            // Columns validation was successful - send the collection to API
             setSubmitting(true);
             formData.model = columns.map(({ key, ...attrs }) => attrs);
-            await collectionsService.createCollection(formData);
+            await handleSubmit(formData);
             setSubmitting(false);
             setRedirect(true);
           } else setColumns(cols);
@@ -208,7 +205,7 @@ const CreateCollectionForm = () => {
           )
         }
       </Formik>
-      {redirect && <Redirect to="/app/dashboard" />}
+      {redirect && <Redirect to={redirectTarget} />}
     </React.Fragment>
   );
 };

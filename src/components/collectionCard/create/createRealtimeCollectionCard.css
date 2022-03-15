@@ -1,0 +1,31 @@
+.create-rt-graph-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background-color: var(--blue);
+    height: 200px;
+    width: 150px;
+    margin: 0px 20px;
+}
+
+.create-rt-graph-card-body:hover {
+    cursor: pointer;
+}
+
+.create-rt-graph-card-body p:first-child {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 80px;
+}
+
+.create-rt-graph-card-body p:last-child {
+    font-weight: 300;
+    justify-self: flex-end;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-size: 20px;
+}

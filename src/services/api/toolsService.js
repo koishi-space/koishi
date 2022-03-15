@@ -65,6 +65,20 @@ export async function changeCollectionVisibility(collectionId, visibility) {
     return http.put(`${apiEndpoint}/visibility/${visibility}/${collectionId}`);
 }
 
+export async function getEmptySettings() {
+  return http.get(`${apiEndpoint}/empty/settings`);
+}
+
+export async function saveRealtimeSession(title, data, model, settings) {
+  console.log(data);
+  return http.post(`${apiEndpoint}/realtime/save`, {
+    title: title,
+    sessionData: data,
+    model: model,
+    settings: settings,
+  });
+}
+
 export default {
   exportCollectionAsJSON,
   exportCollectionAsXML,
@@ -75,4 +89,6 @@ export default {
   removeCollectionShare,
   removeAllCollectionShares,
   changeCollectionVisibility,
+  getEmptySettings,
+  saveRealtimeSession,
 };

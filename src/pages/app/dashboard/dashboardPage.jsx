@@ -4,6 +4,7 @@ import auth from "../../../services/authService";
 import {getCollections} from "../../../services/api/collectionsService";
 import CreateCollectionCard from "../../../components/collectionCard/create/createCollectionCard";
 import CollectionCard from "../../../components/collectionCard/collectionCard";
+import CreateRealtimeCollectionCard from "../../../components/collectionCard/create/createRealtimeCollectionCard";
 class DashboardPage extends React.Component {
     state = {
         user: "",
@@ -23,6 +24,7 @@ class DashboardPage extends React.Component {
            <div className="app">
                <h1>Welcome back, <span>{user.name}</span>!</h1>
                <div className="app-cards">
+                   <CreateRealtimeCollectionCard />
                    <CreateCollectionCard />
                    {collections.map((collection) => <CollectionCard collection={collection} />)}
                </div>
