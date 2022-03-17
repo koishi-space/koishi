@@ -43,7 +43,7 @@ class RealtimeSessionPage extends Component {
         title: this.props.location.state.collectionModel.title,
       });
 
-      socket.on("private message", ({ content, from }) => {
+      socket.on("realtime session", ({ content, from }) => {
         this.setState({ data: [...this.state.data, content] });
       });
     });
