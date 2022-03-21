@@ -1,10 +1,10 @@
 //server.js
 const express = require("express");
-const http = require("http");
 const favicon = require("express-favicon");
 const path = require("path");
 
 const app = express();
+const http = require("http").Server(app);
 const port = process.env.PORT || 3001;
 
 app.use(favicon(__dirname + "/build/favicon.ico"));
