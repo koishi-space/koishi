@@ -41,6 +41,8 @@ class VerifyPage extends Component {
     const query = this.props.location.search;
     const code = new URLSearchParams(query).get("token");
 
+    if (user.status === "verified") return <Redirect to="/app/dashboard" />
+
     return (
       <div className="view main">
         <div className="verify-card">

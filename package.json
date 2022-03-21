@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
     "d3-scale": "^4.0.2",
+    "dotenv": "^16.0.0",
     "downloadjs": "^1.4.7",
     "express": "^4.17.2",
     "express-favicon": "^2.0.1",
