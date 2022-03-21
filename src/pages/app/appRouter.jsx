@@ -7,6 +7,7 @@ import EditCollectionPage from "./collection/edit/editCollectionPage";
 import CollectionOptionsPage from "./collection/options/collectionOptionsPage";
 import RealtimeSessionPage from "./realtime/realtimeSessionPage";
 import NewRealtimeSessionPage from "./realtime/newRealtimeSessionPage";
+import CollectionStatsPage from "./collection/stats/collectionStatsPage";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
       <Route path="/app/realtime/session" render={(props) => <RealtimeSessionPage {...props} />} />
       <Route path="/app/collection/create" exact component={CreateCollectionPage} />
       <Route path="/app/collection/:id/view" component={ViewCollectionPage} />
+      <Route path="/app/collection/:id/stats" component={CollectionStatsPage} />
       <Route path="/app/collection/:id/edit" component={EditCollectionPage} />
       <Route path="/app/collection/:id/options" component={CollectionOptionsPage} />
       <Redirect to="/not-found" />

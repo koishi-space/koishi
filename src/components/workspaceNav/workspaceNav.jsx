@@ -16,6 +16,15 @@ const WorkspaceNav = ({ collectionId }) => {
         View
       </NavLink>
       <NavLink
+        to={`/app/collection/${collectionId}/stats`}
+        style={{ margin: "10px 20px" }}
+        className={(a) =>
+          a ? "workspace-nav-btn" : "workspace-nav-btn-outline"
+        }
+      >
+        Stats
+      </NavLink>
+      <NavLink
         to={`/app/collection/${collectionId}/edit`}
         style={{ margin: "10px 20px" }}
         className={(a) =>

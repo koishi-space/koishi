@@ -16,6 +16,7 @@ import RegisterPage from "./pages/register/registerPage";
 import ProfilePage from "./pages/profile/profilePage";
 import PublicCollectionsOverviewPage from "./pages/publicCollections/overview/publicCollectionsOverviewPage";
 import ViewPublicCollectionPage from "./pages/publicCollections/view/viewPublicCollectionPage";
+import ReactTooltip from 'react-tooltip';
 
 class App extends Component {
   state = {
@@ -33,6 +34,7 @@ class App extends Component {
     const { user } = this.state;
     return (
       <React.Fragment>
+        <ReactTooltip />
         <ToastContainer />
         <PublicNavbar user={user} />
         <main>

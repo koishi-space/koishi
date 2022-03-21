@@ -1,0 +1,64 @@
+.collection-stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.collection-stats-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-radius: 8px;
+  overflow-y: scroll;
+  margin-bottom: 40px;
+}
+
+.collection-stats-div > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.stats-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: whitesmoke;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.stats-card > h2 {
+  color: var(--blue);
+  margin: 0;
+}
+
+.stats-card > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+  
+.stats-card > div > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.stats-card > div > div > p {
+  margin: 5px 30px;
+}
