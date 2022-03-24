@@ -1,0 +1,6 @@
+version: "2"
+services:
+  koishi-web:
+    build: .
+    ports:
+      - "3001:3001"
