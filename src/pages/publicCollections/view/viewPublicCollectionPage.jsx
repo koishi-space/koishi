@@ -4,6 +4,8 @@ import { getPublicCollection } from "../../../services/api/collectionsService";
 import "./viewPublicCollectionPage.css";
 import Select from "../../../components/common/select/select";
 import ComposedGraphComponent from "../../../components/graphs/composedGraphComponent";
+import RadarGraphComponent from "../../../components/graphs/radarGraphComponent";
+import PieGraphComponent from "../../../components/graphs/pieGraphComponent";
 
 class ViewPublicCollectionPage extends Component {
   state = {
@@ -13,6 +15,8 @@ class ViewPublicCollectionPage extends Component {
     graphVariant: "composed",
     graphVariants: [
       { key: "composed", value: "Composed graph" },
+      { key: "radar", value: "Radar chart" },
+      { key: "pie", value: "Pie chart" },
     ],
   };
 
@@ -104,6 +108,7 @@ class ViewPublicCollectionPage extends Component {
               </div>
             )}
 
+            {/* Graph Section */}
             {this.state.selectedSettingsPreset.length > 0 && (
               <React.Fragment>
                 {/* Bar Graph */}
@@ -115,6 +120,29 @@ class ViewPublicCollectionPage extends Component {
                       ).composedGraph
                     }
                     collectionData={this.state.collection.data.value}
+                  />
+                )}
+                {/* Radar Graph */}
+                {this.state.graphVariant === "radar" && (
+                  <RadarGraphComponent
+                    settingsPreset={
+                      this.state.collection.settings.find(
+                        (x) => x._id === this.state.selectedSettingsPreset
+                      ).radarGraph
+                    }
+                    collectionData={this.state.collection.data.value}
+                  />
+                )}
+                {/* Pie Chart */}
+                {this.state.graphVariant === "pie" && (
+                  <PieGraphComponent
+                    settingsPreset={
+                      this.state.collection.settings.find(
+                        (x) => x._id === this.state.selectedSettingsPreset
+                      ).pieGraph
+                    }
+                    collectionData={this.state.collection.data.value}
+                    collectionModel={this.state.collection.model.value}
                   />
                 )}
               </React.Fragment>
