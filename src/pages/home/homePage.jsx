@@ -85,7 +85,7 @@ const HomePage = () => {
               className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href="#"
+              href="https://hendrychjan.notion.site/Tutorials-23d49ec926a1457284ee701c11053f91"
             >
               Get started
             </a>
@@ -106,7 +106,7 @@ const HomePage = () => {
               className="homepage-card-nav-link mg"
               target="_blank"
               rel="noreferrer"
-              href="https://www.notion.so/hendrychjan/Getting-started-with-Koishi-API-0283cd2caf1c4ae4b31440f0a42a3d4a"
+              href="https://hendrychjan.notion.site/API-Documentation-28b14a233fab4a7e92b697c8e1859338"
             >
               Get started with API
             </a>
