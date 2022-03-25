@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import Joi from "joi";
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 class PieGraphComponent extends Component {
+  state = {
+    colors: [],
+  };
+
+  componentDidMount() {
+    let c = [];
+    for (let i = 0; i < this.props.collectionData.length; i++)
+      c.push(this.genRandomColor());
+    this.setState({ colors: c });
+  }
+
   validatePieChart(settingsPayload) {
     const pieSchema = Joi.object({
       dataKey: Joi.string().required(),
@@ -17,6 +28,13 @@ class PieGraphComponent extends Component {
     return error ? false : true;
   }
 
+  genRandomColor() {
+    let l = "0123456789ABCDEF";
+    let c = "#";
+    for (let i = 0; i < 6; i++) c += l[Math.floor(Math.random() * 16)];
+    return c;
+  }
+
   render() {
     const { settingsPreset, collectionData, collectionModel } = this.props;
 
@@ -26,9 +44,7 @@ class PieGraphComponent extends Component {
       );
       if (valueColumn.dataType === "number") {
         for (let d of collectionData) {
-          d[settingsPreset.dataKey] = parseFloat(
-            d[settingsPreset.dataKey]
-          );
+          d[settingsPreset.dataKey] = parseFloat(d[settingsPreset.dataKey]);
         }
       } else {
         return <p>Column of {settingsPreset.dataKey} is not of type number.</p>;
@@ -47,7 +63,14 @@ class PieGraphComponent extends Component {
               dataKey={settingsPreset.dataKey}
               fill={settingsPreset.fill}
               label
-            />
+            >
+              {collectionData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={this.state.colors[index % this.state.colors.length]}
+                />
+              ))}
+            </Pie>
             <Tooltip />
           </PieChart>
         </ResponsiveContainer>
