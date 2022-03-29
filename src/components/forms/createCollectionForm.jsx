@@ -129,6 +129,7 @@ const CreateCollectionForm = ({redirectTarget, handleSubmit}) => {
                   // I know, it is terrible, but im rushing like hell and I dont have time to fix it, sowy..
                   // fix note: the map solution is probably unnecessary and stupid, for-each might work better
                   // (but it didnt work for me, probably because im an idiot and was doing it somehow wrong)
+                  // fix note2: use fieldArray component from Formik
                   <fieldset key={c.key}>
                     <legend>
                       <button
@@ -136,7 +137,7 @@ const CreateCollectionForm = ({redirectTarget, handleSubmit}) => {
                         onClick={(e) => {
                           e.preventDefault();
                           if (columns.length > 1)
-                            setColumns(columns.filter((x) => x.key !== c.key));
+                            setColumns(columns.filter((x) => x.key.toString() !== c.key));
                         }}
                       >
                         <DeleteIcon fontSize="small" />
@@ -144,30 +145,30 @@ const CreateCollectionForm = ({redirectTarget, handleSubmit}) => {
                     </legend>
                     <Input
                       error={
-                        columns.findIndex((x) => x.key == c.key).columnNameError
+                        columns.findIndex((x) => x.key.toString() === c.key.toString()).columnNameError
                       }
-                      name={columns.findIndex((x) => x.key == c.key).key}
+                      name={columns.findIndex((x) => x.key.toString() === c.key.toString()).key}
                       placeholder="Title of a column"
                       type="text"
                       value={
-                        columns.findIndex((x) => x.key == c.key).columnName
+                        columns.findIndex((x) => x.key.toString() === c.key.toString()).columnName
                       }
                       onChange={(e) =>
                         handleColumnFieldChange(
                           e,
-                          columns.findIndex((x) => x.key == c.key)
+                          columns.findIndex((x) => x.key.toString() === c.key.toString())
                         )
                       }
                     />
                     <Select
                       error={
-                        columns.findIndex((x) => x.key == c.key).dataTypeError
+                        columns.findIndex((x) => x.key.toString() === c.key.toString()).dataTypeError
                       }
                       name={c.key + "_select"}
                       onChange={(e) =>
                         handleColumnFieldChange(
                           e,
-                          columns.findIndex((x) => x.key == c.key)
+                          columns.findIndex((x) => x.key.toString() === c.key.toString())
                         )
                       }
                       options={dataTypes}

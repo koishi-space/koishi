@@ -45,7 +45,7 @@ class ViewCollectionPage extends React.Component {
   }
 
   simplifyCollectionStruct = (payload) => {
-    let simplified = new Array();
+    let simplified = [];
     let newItem = {};
     for (let x of payload) {
       for (let y of x) {
@@ -93,11 +93,6 @@ class ViewCollectionPage extends React.Component {
   };
 
   render() {
-    let settings;
-    if (!this.state.loading && this.state.selectedSettingsPreset !== "")
-      settings = this.state.collection.settings.find(
-        (p) => p._id === this.state.selectedSettingsPreset
-      );
     return (
       <div className="view-small-border collection-view">
         {/* Workspace navigation */}

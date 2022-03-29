@@ -14,7 +14,7 @@ class CreateCollectionPage extends Component {
       <div className="view main">
         <h1>Create collection</h1>
         <hr />
-        <CreateCollectionForm redirectTarget="/app/dashboard" handleSubmit={this. handleFormSubmit} />
+        <CreateCollectionForm redirectTarget="/app/dashboard" handleSubmit={this.handleFormSubmit} />
       </div>
     );
   }

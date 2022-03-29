@@ -62,15 +62,6 @@ const RadarGraphSettingsForm = ({
     justifyContent: "center",
   };
 
-  const radarFieldStyle = {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    alignItems: "center",
-    marginTop: "10px",
-    marginBottom: "10px",
-  };
-
   return (
     <React.Fragment>
       <Formik

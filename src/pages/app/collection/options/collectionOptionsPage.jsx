@@ -273,7 +273,7 @@ class CollectionOptionsPage extends React.Component {
                 />
               </div>
               {this.state.collection.isPublic && <p style={{"margin": "0px", "marginBottom": "20px"}}>
-                <b>Public link: </b><a target="_blank" href={`${window.location.origin}/public-collections/${collection._id}`}>{`${window.location.origin}/public-collections/${collection._id}`}</a>
+                <b>Public link: </b><a target="_blank" rel="noreferrer" href={`${window.location.origin}/public-collections/${collection._id}`}>{`${window.location.origin}/public-collections/${collection._id}`}</a>
               </p>}
               <div>
                 <Button

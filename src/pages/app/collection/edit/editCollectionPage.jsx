@@ -184,12 +184,13 @@ class EditCollectionPage extends React.Component {
                         }}
                       />
                     );
+                  return <p>Invalid data type.</p>;
                 })}
                 <Button
                   text="Add"
                   style={{ margin: "0 4px" }}
                   onClick={() => {
-                    let rowToSubmit = new Array();
+                    let rowToSubmit = [];
                     for (let [k, v] of Object.entries(this.state.newRow)) {
                       rowToSubmit.push({ column: k, data: v });
                     }
@@ -312,6 +313,7 @@ class EditCollectionPage extends React.Component {
                         }}
                       />
                     );
+                  return <p>Invalid data type.</p>;
                 })}
                 {/* The old way of rendering inputs (does not support validation) */}
                 {/* {this.state.model.value.map((field) => (
@@ -331,7 +333,7 @@ class EditCollectionPage extends React.Component {
                   text="Save"
                   style={{ margin: "0 4px" }}
                   onClick={() => {
-                    let rowToSubmit = new Array();
+                    let rowToSubmit = [];
                     for (let [k, v] of Object.entries(this.state.editRow)) {
                       if (k !== "index")
                         rowToSubmit.push({ column: k, data: v });

@@ -79,7 +79,7 @@ export async function saveRealtimeSession(title, data, model, settings) {
   });
 }
 
-export default {
+const exp = {
   exportCollectionAsJSON,
   exportCollectionAsXML,
   exportCollectionAsXLSX,
@@ -92,3 +92,5 @@ export default {
   getEmptySettings,
   saveRealtimeSession,
 };
+
+export default exp;

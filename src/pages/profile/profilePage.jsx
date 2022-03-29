@@ -70,6 +70,7 @@ class ProfilePage extends Component {
               <h1>My profile</h1>
               <Fragment>
                 <h2>{user.name}</h2>
+                <h3>{user.email}</h3>
               </Fragment>
             </div>
             <div className="profile-page-content-div">

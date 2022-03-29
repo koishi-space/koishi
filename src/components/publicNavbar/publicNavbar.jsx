@@ -10,9 +10,6 @@ const PublicNavbar = ({ user }) => {
         <h1>Koishi</h1>
       </Link>
       <div className="nav">
-        {/* <NavLink className={a => a ? "nav-link-active mg" : "nav-link mg"} to="/about">
-          About
-        </NavLink> */}
         {auth.getCurrentUser() ? (
           <NavLink
             className={(a) => (a ? "nav-link-active mg" : "nav-link mg")}
@@ -49,11 +46,11 @@ const PublicNavbar = ({ user }) => {
         </a>
         {user ? (
           <div className="dropdown mg">
-            <a className="nav-link">
+            <button className="nav-link">
               <b>
                 <u>{user.name}</u>
               </b>
-            </a>
+            </button>
             <div className="dropdown-content">
               <NavLink
                 className={(a) => (a ? "nav-link-active" : "nav-link")}

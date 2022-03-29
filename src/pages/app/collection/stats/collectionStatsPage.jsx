@@ -21,7 +21,7 @@ class CollectionStatsPage extends Component {
   }
 
   simplifyCollectionStruct = (payload) => {
-    let simplified = new Array();
+    let simplified = [];
     let newItem = {};
     for (let x of payload) {
       for (let y of x) {

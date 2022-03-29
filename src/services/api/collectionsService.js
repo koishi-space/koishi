@@ -117,7 +117,7 @@ export async function deleteCollectionSettings(collectionId, settingsId) {
   return http.delete(`${apiEndpoint}/${collectionId}/settings/${settingsId}`);
 }
 
-export default {
+const exp = {
   getCollections,
   getPublicCollections,
   getPublicCollection,
@@ -138,3 +138,5 @@ export default {
   renameCollectionSettings,
   deleteCollectionSettings,
 };
+
+export default exp;

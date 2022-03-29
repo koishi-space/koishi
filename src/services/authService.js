@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import http from "./httpService";
 
-var apiEndpoint = (process.env.REACT_APP_API_URL + "/auth");
+var apiEndpoint = process.env.REACT_APP_API_URL + "/auth";
 
 http.setJwt(getJwt());
 
@@ -36,10 +36,12 @@ export function getJwt() {
   return localStorage.getItem("auth-token") || "";
 }
 
-export default {
+const exp = {
   login,
   loginWithJwt,
   logout,
   getCurrentUser,
   getJwt,
 };
+
+export default exp;

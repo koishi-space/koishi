@@ -10,7 +10,6 @@ import ComposedGraphSettingsForm from "../../../components/forms/composedGraphSe
 import ComposedGraphComponent from "../../../components/graphs/composedGraphComponent";
 import Button from "../../../components/common/button/button";
 import { Redirect } from "react-router-dom";
-import { ThirtyFpsSelect } from "@mui/icons-material";
 
 class RealtimeSessionPage extends Component {
   state = {
