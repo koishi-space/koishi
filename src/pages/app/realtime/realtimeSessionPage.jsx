@@ -10,6 +10,8 @@ import ComposedGraphSettingsForm from "../../../components/forms/composedGraphSe
 import ComposedGraphComponent from "../../../components/graphs/composedGraphComponent";
 import Button from "../../../components/common/button/button";
 import { Redirect } from "react-router-dom";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 class RealtimeSessionPage extends Component {
   state = {
@@ -99,7 +101,14 @@ class RealtimeSessionPage extends Component {
             ) : (
               <div>
                 <h1>Session {this.state.title}</h1>
-                <p style={{ color: "#07bc0c" }}>{this.state.status}</p>
+                <CopyToClipboard
+                  text={this.state.status.split(" ")[2]}
+                  onCopy={() =>
+                    toast.info("Session ID copied to clipboard!")
+                  }
+                >
+                  <p style={{ color: "#07bc0c" }}>{this.state.status}</p>
+                </CopyToClipboard>
                 <div
                   style={{
                     margin: "20px 0",

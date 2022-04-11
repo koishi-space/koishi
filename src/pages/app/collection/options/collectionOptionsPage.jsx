@@ -32,6 +32,7 @@ import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
 import download from "downloadjs";
 import Checkbox from "../../../../components/common/checkbox/checkbox";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 // TODO: implement ViewCollectionPage
 class CollectionOptionsPage extends React.Component {
@@ -246,8 +247,15 @@ class CollectionOptionsPage extends React.Component {
                   />
                 </div>
               )}
-              <p style={{"margin": "0px 10px"}}>
-                <b>Id:</b> {collection._id}
+              <p style={{ margin: "0px 10px" }}>
+                <CopyToClipboard
+                  text={collection._id}
+                  onCopy={() =>
+                    toast.info("Collection ID copied to clipboard!")
+                  }
+                >
+                  <span><b>Id:</b> <i>{collection._id}</i></span>
+                </CopyToClipboard>
               </p>
               <p>
                 <b>Owner:</b> {collection.ownerString}
@@ -272,9 +280,16 @@ class CollectionOptionsPage extends React.Component {
                   }}
                 />
               </div>
-              {this.state.collection.isPublic && <p style={{"margin": "0px", "marginBottom": "20px"}}>
-                <b>Public link: </b><a target="_blank" rel="noreferrer" href={`${window.location.origin}/public-collections/${collection._id}`}>{`${window.location.origin}/public-collections/${collection._id}`}</a>
-              </p>}
+              {this.state.collection.isPublic && (
+                <p style={{ margin: "0px", marginBottom: "20px" }}>
+                  <b>Public link: </b>
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`${window.location.origin}/public-collections/${collection._id}`}
+                  >{`${window.location.origin}/public-collections/${collection._id}`}</a>
+                </p>
+              )}
               <div>
                 <Button
                   text="Delete collection"
