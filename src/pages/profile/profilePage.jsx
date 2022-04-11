@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 import Spinner from "../../components/common/spinner/spinner";
+import Button from "../../components/common/button/button";
 import "./profilePage.css";
 import { getMyProfile } from "../../services/api/usersService";
+import { getJwt } from "../../services/authService";
 import {
   getCollectionShareInvites,
   acceptCollectionShare,
@@ -11,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
 import { toast } from "react-toastify";
 import _ from "lodash";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 class ProfilePage extends Component {
   state = {
@@ -18,6 +21,8 @@ class ProfilePage extends Component {
     shareInvites: [],
     loading: true,
     notificationsLoading: false,
+    tokenCopied: false,
+    authToken: getJwt(),
   };
 
   componentDidMount() {
@@ -58,6 +63,10 @@ class ProfilePage extends Component {
     }
   };
 
+  handleGetAuthToken = () => {
+    this.setState({ authTokenModalOpened: false });
+  };
+
   render() {
     const { user, shareInvites } = this.state;
     return (
@@ -71,6 +80,15 @@ class ProfilePage extends Component {
               <Fragment>
                 <h2>{user.name}</h2>
                 <h3>{user.email}</h3>
+                <CopyToClipboard
+                  text={this.state.authToken}
+                  onCopy={() => this.setState({ tokenCopied: true })}
+                >
+                  <Button text="Get my x-auth-token" />
+                </CopyToClipboard>
+                {this.state.tokenCopied && (
+                  <p style={{ color: "#07bc0c" }}>Copied to clipboard!</p>
+                )}
               </Fragment>
             </div>
             <div className="profile-page-content-div">

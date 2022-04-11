@@ -68,7 +68,7 @@ class CollectionStatsPage extends Component {
           ) : (
             <div>
               <h1 style={{ marginBottom: "20px" }}>Collection stats</h1>
-              {this.state.collection.data.value.length > 0 ? 
+              {this.state.collection.data.value.length > 1 ? 
               this.state.collection.model.value.map((c) => (
                 <>
                   {c.dataType === "number" && (
@@ -97,7 +97,7 @@ class CollectionStatsPage extends Component {
                     </div>
                   )}
                 </>
-              )) : <p>Collection is empty...</p>}
+              )) : <p>Not enough data...</p>}
             </div>
           )}
         </div>
