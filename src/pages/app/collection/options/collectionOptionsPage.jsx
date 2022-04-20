@@ -254,7 +254,9 @@ class CollectionOptionsPage extends React.Component {
                     toast.info("Collection ID copied to clipboard!")
                   }
                 >
-                  <span><b>Id:</b> <i>{collection._id}</i></span>
+                  <span>
+                    <b>Id:</b> <i>{collection._id}</i>
+                  </span>
                 </CopyToClipboard>
               </p>
               <p>
