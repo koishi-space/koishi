@@ -348,14 +348,7 @@ class CollectionOptionsPage extends React.Component {
                   <DeleteIcon
                     className="collection-options-edit-button c-danger"
                     onClick={() =>
-                      ConfirmDialog({
-                        title: "Delete collection",
-                        message: `Are you sure you want to delete ${this.state.collection.title}?`,
-                        labelConfirm: "Delete",
-                        labelDismiss: "Cancel",
-                        onConfirm: () =>
-                          this.handleDeleteCollectionSettingsPreset(s._id),
-                      })
+                      this.handleDeleteCollectionSettingsPreset(s._id)
                     }
                   />
                 </div>

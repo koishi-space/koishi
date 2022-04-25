@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { io } from "socket.io-client";
 import "../collection/view/viewCollectionPage.css";
-import {
-  getEmptySettings,
-  saveRealtimeSession,
-} from "../../../services/api/toolsService";
+import { saveRealtimeSession, getEmptySettings} from "../../../services/api/collectionsService";
 import Spinner from "../../../components/common/spinner/spinner";
 import ComposedGraphSettingsForm from "../../../components/forms/composedGraphSettingsForm";
 import ComposedGraphComponent from "../../../components/graphs/composedGraphComponent";

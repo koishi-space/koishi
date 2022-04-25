@@ -33,7 +33,7 @@ export async function createCollection(collection) {
 
 // edit collection
 export async function editCollection(collectionId, payload) {
-  return http.put(`${apiEndpoint}/${collectionId}`, payload);
+  return http.patch(`${apiEndpoint}/${collectionId}`, payload);
 }
 
 // delete a collection
@@ -117,6 +117,21 @@ export async function deleteCollectionSettings(collectionId, settingsId) {
   return http.delete(`${apiEndpoint}/${collectionId}/settings/${settingsId}`);
 }
 
+// save realtime session as a regular collection
+export async function saveRealtimeSession(title, data, model, settings) {
+  console.log(data);
+  return http.post(`${apiEndpoint}/realtime/save`, {
+    title: title,
+    sessionData: data,
+    model: model,
+    settings: settings,
+  });
+}
+
+export async function getEmptySettings() {
+  return http.get(`${apiEndpoint}/empty/settings`);
+}
+
 const exp = {
   getCollections,
   getPublicCollections,
@@ -137,6 +152,8 @@ const exp = {
   newCollectionSettings,
   renameCollectionSettings,
   deleteCollectionSettings,
+  saveRealtimeSession,
+  getEmptySettings,
 };
 
 export default exp;
