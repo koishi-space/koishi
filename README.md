@@ -13,6 +13,6 @@ The whole project is opensource - check the other parts of koishi:
 
 [Koishi mobile](https://github.com/hendrychjan/koishi-mobile) - an Android app for Koishi
 
-## Gettings started
+## Getting started
 
 You can either use the official Koishi severs at [koishi.nechapu.to](https://koishi.nechapu.to), or [install Koishi on-premise](https://hendrychjan.notion.site/Install-Koishi-on-premise-b1cff0f90296460e9297d3d06d62e5e1).
