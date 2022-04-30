@@ -95,3 +95,7 @@ hr {
 .mt20 {
   margin-top: 20px;
 }
+
+.self-center {
+  align-self: center;
+}

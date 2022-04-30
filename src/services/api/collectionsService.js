@@ -132,6 +132,27 @@ export async function getEmptySettings() {
   return http.get(`${apiEndpoint}/empty/settings`);
 }
 
+export async function getCollectionActions(collectionId) {
+  return http.get(`${apiEndpoint}/${collectionId}/actions`);
+}
+
+export async function updateCollectionActionConnectors(collectionId, payload) {
+  return http.patch(
+    `${apiEndpoint}/${collectionId}/actions/connectors`,
+    payload
+  );
+}
+
+export async function updateCollectionActionRunners(collectionId, payload) {
+  return http.patch(`${apiEndpoint}/${collectionId}/actions/runners`, payload);
+}
+
+export async function testActionsConnector(collectionId, connector) {
+  return http.get(
+    `${apiEndpoint}/${collectionId}/actions/connectors/test?connector=${connector}`
+  );
+}
+
 const exp = {
   getCollections,
   getPublicCollections,
@@ -154,6 +175,10 @@ const exp = {
   deleteCollectionSettings,
   saveRealtimeSession,
   getEmptySettings,
+  getCollectionActions,
+  updateCollectionActionConnectors,
+  updateCollectionActionRunners,
+  testActionsConnector,
 };
 
 export default exp;
