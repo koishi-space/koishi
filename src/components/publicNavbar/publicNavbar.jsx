@@ -34,13 +34,13 @@ const PublicNavbar = ({ user }) => {
           rel="noreferrer"
           href="https://hendrychjan.notion.site/Koishi-docs-706dfe04d2d34861a8316af7bd26ceb9"
         >
-          Documentation
+          Docs
         </a>
         <a
           className="nav-link mg"
           target="_blank"
           rel="noreferrer"
-          href="https://hendrychjan.notion.site/API-Documentation-28b14a233fab4a7e92b697c8e1859338"
+          href="https://koishi-api.nechapu.to/docs"
         >
           API
         </a>
